@@ -1,0 +1,62 @@
+input#firstname {
+    position: relative;
+    top:2px;
+  }
+
+  input#lastname {
+    position: relative;
+    top:4px;
+  }
+
+  input#city {
+    position: relative;
+    top:6px;
+  }
+  input#state {
+    position: relative;
+    top:8px;
+  }
+  input#username {
+    position: relative;
+    top:10px;
+  }
+  input#password {
+    position: relative;
+    top:12px;
+  }
+  input#email {
+    position: relative;
+    top:14px;
+  }
+
+  input#password,
+  #username, #email, #city, #state, #firstname, #lastname {
+    padding: 10px;
+  }
+
+  div.text-center.mt-5 {
+    position: relative;
+    top: 5px;
+  }
+
+  button.btn.btn-primary {
+    position: relative;
+    top:10px;
+    padding: 10px 50px;
+  
+  }
+
+  a {
+    position: relative;
+    top: 14px;
+  }
+
+  div.container{
+    position: relative;
+    top:20px;
+  }
+
+form#form.form-control{
+  position: relative;
+  height: 32rem;
+}
