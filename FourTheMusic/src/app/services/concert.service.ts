@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Genre } from '../interfaces/genre';
+import { Concert } from '../interfaces/concert';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GenreServiceService {
-  private baseurl = 'http://localhost:8080/4TheMusic/genre';
-  
+export class ConcertService {
+  private baseurl = 'http://localhost:8080/4TheMusic/concert';
+
   constructor(private http:HttpClient) { }
 
   private httpOptions = {
@@ -17,17 +17,23 @@ export class GenreServiceService {
       'Content-Type': 'application/json;charset=utf-8'
     }),
   };
-
-  GetGenre(genre_id: number):Observable<Genre>{
-    return this.http.get<Genre>(this.baseurl+'/'+genre_id).pipe(retry(1),
-    catchError(this.errorHandler));
+  
+  GetConcert(concert_id:number):Observable<Concert>{
+    return this.http.get<Concert>(this.baseurl+'/'+concert_id).pipe(
+      retry(1),catchError(this.errorHandler));
   }
 
-  PostGenre(genre:Genre):Observable<Genre>{
+  PostConcert(concert:Concert):Observable<Concert>{
     this.httpOptions.headers = this.httpOptions.headers.set(
       'Content-Type','application/json;charset=utf-8');
-    return this.http.post<Genre>(this.baseurl,JSON.stringify(genre),this.httpOptions).pipe(
-      retry(1),catchError(this.errorHandler));
+    return this.http.post<Concert>(this.baseurl,JSON.stringify(concert),this.httpOptions).pipe(
+        retry(1),catchError(this.errorHandler));
+  }
+
+  DeleteConcert(concert_id:number):Observable<Concert>{
+    this.httpOptions.headers = this.httpOptions.headers.set(
+      'Content-Type','application/json;charset=utf-8');
+    return this.http.delete<Concert>(this.baseurl);
   }
 
   errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
@@ -42,4 +48,5 @@ export class GenreServiceService {
     console.log(errorMessage);
     return throwError(errorMessage);
   }
+  
 }
