@@ -7,6 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClient,HttpHeaders,HttpClientModule }    from '@angular/common/http';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -22,7 +23,10 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClient,
+    HttpHeaders,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
