@@ -1,11 +1,13 @@
 
 <div class="text-center mt-5">
-    <form class="form-control" id="form"style="max-width: 350px; margin: auto">
+    <form [formGroup]="loginForm" (ngSubmit) = "userLogin()" class="form-control" id="form"style="max-width: 350px; margin: auto"
+    >
       <h1 class="h2" id="h2">Sign in</h1>
 
       <div class = "container">
       <label for="username" class="visually-hidden">Username</label>
       <input
+        formControlName="username"
         type="text"
         id="username"
         name="username"
@@ -17,6 +19,7 @@
       />
       <label for="password" class="visually-hidden">Password</label>
       <input
+      formControlName="password"
         type="password"
         id="password"
         name="password"
@@ -28,7 +31,7 @@
       />
 
       <div class="d-grid gap-2 mt-3">
-        <button class="btn btn-primary" type="button" onclick="" >Sign In</button>
+        <button class="btn btn-primary" type="submit" onclick="">Sign In</button>
       </div>
         <a href="/register">Don't have an account? Sign Up</a>
       </div>
