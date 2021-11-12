@@ -2,23 +2,23 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { TestCompComponent } from './components/test-comp/test-comp.component';
-import { GenreServiceService } from './services/genre-service.service';
 import { AuthenticationService } from './services/authentication.service';
+import { httpInterceptorProviders} from './interceptor/index' 
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+
 
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
+  {path: '', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'home', component: NavbarComponent}
+  {path: 'navbar', component: NavbarComponent}
   
 ]
 @NgModule({
@@ -26,8 +26,7 @@ const routes: Routes = [
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    RegisterComponent,
-    TestCompComponent
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -35,10 +34,13 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpClient,
     RouterModule.forRoot(routes)
   ],
-  providers: [GenreServiceService, AuthenticationService],
+
+  //the token HTTP_INTERCEPTORS to use the classes (useClass) AuthInterceptor. In order to get this working, we need to specify multi: true so Angular knows that multiple values (or classes) are going to be used.
+  providers: [AuthenticationService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    httpInterceptorProviders,
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry} from 'rxjs/operators';
+import { AuthInterceptor } from '../interceptor/auth.interceptor';
+
+
 
  interface newUser {
-    token: string;
-    firstname: string,
-    lastname: string,
+    token: string,
+    firstName: string,
+    lastName: string,
     city: string,
     state: string,
     username: string,
     password: string,
     email: string
-
 }
 
 interface logUser {
@@ -26,11 +28,18 @@ interface logUser {
 })
 export class AuthenticationService {
   
+ 
+getAuthToken(){
+  return 'token'
+}
+
 private apiUrl = 'http://localhost:8080/4TheMusic/';
 
 private httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=utf-8', 'Authorization': 'token'}),
+  headers: new HttpHeaders({'Content-Type': 'application/json',
+  'Authorization': `token`})
 };
+
 // private handleError : any;
 
 
@@ -39,10 +48,8 @@ private httpOptions = {
 
   //user login
   userLogin(logUser : logUser): Observable<logUser> {
-    this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8').set('Authorization', 'token')
-    console.log(JSON.stringify(this.httpOptions.headers))
     return this.http.post<logUser>(this.apiUrl + 'login', 
-    JSON.stringify(logUser.token),
+    JSON.stringify(logUser),
     this.httpOptions)
     .pipe(
       retry(1),
@@ -50,23 +57,32 @@ private httpOptions = {
     )
   }
 
+  // gettoken() {
+    
+  // }
   // `${APIURL}/user/${this.state.login ? 'login' : 'signup'}`
- 
-
-  public newHead = this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8')
 
 
   //register function
   userRegister(newUser: newUser): Observable<newUser> {
-   this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8').set('Authentication', 'token')
-   console.log(JSON.stringify(this.httpOptions.headers))
-    return this.http.post<newUser>(this.apiUrl + 'user/register/basic',
-    JSON.stringify(newUser.token),
+  console.log(newUser),
+   console.log(newUser.firstName)
+   console.log(this.httpOptions)
+
+   this.httpOptions.headers =
+   this.httpOptions.headers.set('Authorization', `this.token`);
+   localStorage.setItem('token', `this.token`)
+   console.log( localStorage.setItem('token', `this.token`))
+    let result = this.http.post<newUser>(this.apiUrl + 'register/basic',
+    JSON.stringify(newUser),
   this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
+     
     )
+    console.log(result)
+    return result;
   }
 
   handleError(error: HttpErrorResponse) {
@@ -78,23 +94,5 @@ private httpOptions = {
   loggedOut() {
     return localStorage.clear()
   }
-  // errorHand1(error:any) {
-  //   let errorMessage = ''
-  //   if(error.error instanceof ErrorEvent) {
-  //     errorMessage = error.error.message;
-  //   } else {
-  //     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`
-  //   }
-  //   console.log(errorMessage)
-  //   return throwError(() =>errorMessage);
-  // }
 
-  // userRegister(firstname: string, lastname: string, city: string, 
-  //   state: string, username: string, password: string, 
-  //   email: string): Observable<any> {
-  //   return this.http.post(this.apiUrl + 'register', {
-  //     firstname, lastname, city, state, username,
-  //     password,email
-  //   }, this.httpOptions)
-  // }
 }
