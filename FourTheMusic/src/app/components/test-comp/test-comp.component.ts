@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Genre } from '../../interfaces/genre';
 import { GenreServiceService } from '../../services/genre-service.service';
+import { Location } from '../../interfaces/location'
+import { LocationService } from 'src/app/services/location.service';
+import { ConcertService } from 'src/app/services/concert.service';
+import { Concert } from 'src/app/interfaces/concert'
 
 @Component({
   selector: 'app-test-comp',
@@ -10,7 +14,9 @@ import { GenreServiceService } from '../../services/genre-service.service';
 })
 export class TestCompComponent implements OnInit {
   num:number=0;
-  constructor(private service:GenreServiceService) { }
+  constructor(private service:GenreServiceService,
+    private service2:LocationService,
+    private service3:ConcertService) { }
 
   
   run(num:number):Observable<Genre>{
@@ -28,12 +34,46 @@ export class TestCompComponent implements OnInit {
     return this.service.PostGenre(genre);
   }
 
-  display(genre:Observable<Genre>):void{
+  displayGenre(genre:Observable<Genre>):void{
     genre.subscribe(data=>{
       console.log("id: "+data.genre_id);
       console.log("name: "+data.genre_name);
       console.log("url: "+data.image_url);
     });
+  }
+
+  runGenre():Observable<Genre>{
+    return this.service.GetGenre(1);
+  }
+
+  runLocation():Observable<Location>{
+    return this.service2.GetLocation(1);
+  }
+
+  runConcert():Observable<Concert>{
+    return this.service3.GetConcert(1);
+  }
+
+  testAll(genre:Observable<Genre>,location:Observable<Location>,concert:Observable<Concert>):
+  void{
+    genre.subscribe(data=>{
+      console.log("id: "+data.genre_id);
+      console.log("name: "+data.genre_name);
+      console.log("url: "+data.image_url);
+    })
+    location.subscribe(data2=>{
+      console.log("location_id: "+data2.location_id);
+      console.log("city: "+data2.city);
+      console.log("state: "+data2.state);
+    })
+    concert.subscribe(data3=>{
+      console.log("concert_id: "+data3.concert_id);
+      console.log("date: "+data3.concert_date);
+      console.log("name: "+data3.name);
+      console.log("location_id: "+data3.location.location_id);
+      console.log("city: "+data3.location.city);
+      console.log("state: "+data3.location.state);
+    })
   }
 
   ngOnInit(): void {
