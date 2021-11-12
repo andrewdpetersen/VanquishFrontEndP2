@@ -6,6 +6,8 @@ import { Location } from '../../interfaces/location'
 import { LocationService } from 'src/app/services/location.service';
 import { ConcertService } from 'src/app/services/concert.service';
 import { Concert } from 'src/app/interfaces/concert'
+import { TrackService } from 'src/app/services/track.service';
+import { Track } from 'src/app/interfaces/track';
 
 @Component({
   selector: 'app-test-comp',
@@ -16,7 +18,8 @@ export class TestCompComponent implements OnInit {
   num:number=0;
   constructor(private service:GenreServiceService,
     private service2:LocationService,
-    private service3:ConcertService) { }
+    private service3:ConcertService,
+    private service4:TrackService) { }
 
   
   run(num:number):Observable<Genre>{
@@ -54,7 +57,11 @@ export class TestCompComponent implements OnInit {
     return this.service3.GetConcert(1);
   }
 
-  testAll(genre:Observable<Genre>,location:Observable<Location>,concert:Observable<Concert>):
+  runTrack():Observable<Track>{
+    return this.service4.GetTrack(1);
+  }
+
+  testAll(genre:Observable<Genre>,location:Observable<Location>,concert:Observable<Concert>,track:Observable<Track>):
   void{
     genre.subscribe(data=>{
       console.log("id: "+data.genre_id);
@@ -73,6 +80,10 @@ export class TestCompComponent implements OnInit {
       console.log("location_id: "+data3.location.location_id);
       console.log("city: "+data3.location.city);
       console.log("state: "+data3.location.state);
+    })
+    track.subscribe(data4=>{
+      console.log("track_id: "+data4.track_id);
+      console.log("title: "+data4.title);
     })
   }
 
