@@ -1,8 +1,15 @@
 <p>track-search works!</p>
 <div>
-    <input type="text" [(ngModel)]='title'>
+    <input type="text" [(ngModel)]='search'>
+    <br><br>
+    <label for="selectSearch">Search for:</label>
+    <select [(ngModel)]='searchType' id='selectSearch'>
+        <option value="track">Tracks</option>
+        <option value="artist">Artists</option>
+        <option value="album">Albums</option>
+    </select>
 </div>
 <br>
 <div>
-    <button (click)="listTracks(title)" value="Run">SeparateDivRun</button>
+    <button (click)="listSearch(search,searchType)" value="Search">Search</button>
 </div>
