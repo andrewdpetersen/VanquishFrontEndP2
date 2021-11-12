@@ -29,7 +29,7 @@ export class AuthenticationService {
 private apiUrl = 'http://localhost:8080/4TheMusic/';
 
 private httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=utf-8', 'Authentication': 'token'}),
+  headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=utf-8', 'Authorization': 'token'}),
 };
 // private handleError : any;
 
@@ -39,9 +39,9 @@ private httpOptions = {
 
   //user login
   userLogin(logUser : logUser): Observable<logUser> {
-    this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8').set('Authentication', 'token')
+    this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8').set('Authorization', 'token')
     console.log(JSON.stringify(this.httpOptions.headers))
-    return this.http.post<logUser>('http://localhost:8080/user/login', 
+    return this.http.post<logUser>(this.apiUrl + 'login', 
     JSON.stringify(logUser.token),
     this.httpOptions)
     .pipe(
@@ -49,6 +49,8 @@ private httpOptions = {
       catchError(this.handleError)
     )
   }
+
+  // `${APIURL}/user/${this.state.login ? 'login' : 'signup'}`
  
 
   public newHead = this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8')
@@ -58,7 +60,7 @@ private httpOptions = {
   userRegister(newUser: newUser): Observable<newUser> {
    this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8').set('Authentication', 'token')
    console.log(JSON.stringify(this.httpOptions.headers))
-    return this.http.post<newUser>('http://localhost:8080/user/register/basic',
+    return this.http.post<newUser>(this.apiUrl + 'user/register/basic',
     JSON.stringify(newUser.token),
   this.httpOptions)
     .pipe(

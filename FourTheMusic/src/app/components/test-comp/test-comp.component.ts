@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Genre } from '../genre';
-import { GenreServiceService } from '../genre-service.service';
+import { Genre } from 'src/app/interfaces/genre';
+import { GenreServiceService } from 'src/app/services/genre-service.service'; 
+
+
 
 @Component({
   selector: 'app-test-comp',
