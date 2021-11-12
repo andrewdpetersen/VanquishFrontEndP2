@@ -1,6 +1,6 @@
 export interface Album {
-    ID:number,
-    albumTitle:String,
+    id:number,
+    album_title:String,
     date:String,
     genre:
     {
@@ -10,7 +10,7 @@ export interface Album {
     },
     artist:
     {
-        ID:number,
+        artist_id:number,
         name:String,
         image_url:String
     }
