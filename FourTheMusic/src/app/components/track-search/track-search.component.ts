@@ -48,8 +48,8 @@ export class TrackSearchComponent implements OnInit {
     }else if(searchType=='album'){
       this.service3.SearchAlbums(search).subscribe(data=>{
         for(const album of data){
-          let {ID, albumTitle, date, artist, genre} = album;
-          this.albumListResults.push({ID, albumTitle, date, artist, genre});
+          let {id, album_title, date, genre, artist} = album;
+          this.albumListResults.push({id, album_title, date, genre, artist});
           console.log(album);
     }
   })

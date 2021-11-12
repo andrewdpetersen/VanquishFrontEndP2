@@ -23,4 +23,19 @@
         <h6>Album: {{track.ablum>></h6>
         <br>
     </div>
+
+    <div *ngFor="let artist of artistListResults" class="artistList">
+        <h6>Artist ID: {{artist.ID}}</h6>
+        <h4>Name: {{artist.name}}</h4>
+        <h6>Image: {{artist.image_url}}</h6>
+        <br>
+    </div>
+
+    <div *ngFor="let album of albumListResults" class="albumList">
+        <h6>Album ID: {{album.id}}</h6>
+        <h4>Title: {{album.album_title}}</h4>
+        <h6>Release Date: {{album.date}}</h6>
+        <h6>Genre: {{album.genre.genre_name}}</h6>    
+        <br>
+    </div>
 </div>
