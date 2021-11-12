@@ -9,6 +9,11 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { TestCompComponent } from './components/test-comp/test-comp.component';
+import { ConcertService } from './services/concert.service';
+import { LocationService } from './services/location.service';
+import { GenreServiceService } from './services/genre-service.service';
+import { AuthenticationService } from './services/authentication.service';
 
 
 const routes: Routes = [
@@ -22,7 +27,8 @@ const routes: Routes = [
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    TestCompComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +38,10 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [GenreServiceService,
+    ConcertService,
+    LocationService,
+    AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
