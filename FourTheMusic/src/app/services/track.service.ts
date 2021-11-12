@@ -9,7 +9,7 @@ import { Track } from '../interfaces/track';
 })
 export class TrackService {
   private baseurl = 'http://localhost:8080/4TheMusic/track';
-  private searchUrl = 'http://localhost:8080/4TheMusic/search';
+  private searchUrl = 'http://localhost:8080/4TheMusic/track/search';
 
   constructor(private http:HttpClient) { }
 
