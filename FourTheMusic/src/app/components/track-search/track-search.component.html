@@ -13,3 +13,14 @@
 <div>
     <button (click)="listSearch(search,searchType)" value="Search">Search</button>
 </div>
+<br>
+
+<div class="list-container">
+    <div *ngFor="let track of trackListResults" class="trackList">
+        <h6>Track ID: {{track.track_id}}</h6>
+        <h4>Title: {{track.title}}</h4>
+        <h6>Artist: {{track.artist}}</h6>
+        <h6>Album: {{track.ablum>></h6>
+        <br>
+    </div>
+</div>

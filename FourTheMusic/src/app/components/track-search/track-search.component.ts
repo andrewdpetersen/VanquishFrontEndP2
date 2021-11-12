@@ -52,7 +52,6 @@ export class TrackSearchComponent implements OnInit {
           this.albumListResults.push({ID, albumTitle, date, artist, genre});
           console.log(album);
     }
-    
   })
 }
   }
