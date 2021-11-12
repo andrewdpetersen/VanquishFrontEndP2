@@ -6,6 +6,7 @@ import { Album } from 'src/app/interfaces/album';
 import { AlbumService } from 'src/app/services/album.service';
 import { ArtistService } from 'src/app/services/artist.service';
 import { TrackService } from 'src/app/services/track.service';
+import { RatingService } from 'src/app/services/rating.service';
 
 @Component({
   selector: 'app-track-search',
@@ -18,14 +19,12 @@ export class TrackSearchComponent implements OnInit {
   trackListResults: Track[]=[];
   artistListResults: Artist[]=[];
   albumListResults: Album[]=[];
+  ratedTrack:Track[]=[];
 
   constructor(private service:TrackService,
     private service2:ArtistService,
-    private service3:AlbumService) { }
-
-  searchTracks(search:String):Observable<Track[]>{
-    return this.service.SearchTracks(search);
-  }
+    private service3:AlbumService,
+    private service4:RatingService) { }
 
   listSearch(search:String,searchType:String):void{
     if(searchType=='track'){
@@ -54,6 +53,21 @@ export class TrackSearchComponent implements OnInit {
     }
   })
 }
+  }
+
+  likeThis(track:Track):void{
+    this.service4.likeTrack(track).subscribe(data=>{
+        let {track_id, title, artist, album} = data;
+        this.ratedTrack.push({track_id, title, artist, album});
+        console.log(this.ratedTrack);
+    });
+  }
+  dislikeThis(track:Track):void{
+    this.service4.dislikeTrack(track).subscribe(data=>{
+      let {track_id, title, artist, album} = data;
+      this.ratedTrack.push({track_id, title, artist, album});
+      console.log(this.ratedTrack);
+  });
   }
 
   ngOnInit(): void {

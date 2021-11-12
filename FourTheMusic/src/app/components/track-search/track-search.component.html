@@ -21,6 +21,9 @@
         <h4>Title: {{track.title}}</h4>
         <h6>Artist: {{track.artist}}</h6>
         <h6>Album: {{track.ablum>></h6>
+        <button (click)="likeThis(track)" value="LIKE">LIKE</button>
+        <br>
+        <button (click)="dislikeThis(track)" value="DISLIKE">DISLIKE</button>
         <br>
     </div>
 
