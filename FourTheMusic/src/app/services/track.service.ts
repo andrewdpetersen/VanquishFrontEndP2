@@ -24,8 +24,8 @@ export class TrackService {
       retry(1),catchError(this.errorHandler));
   }
 
-  SearchTracks(title:String):Observable<Track>{
-    return this.http.get<Track>(this.searchUrl+'/'+title).pipe(
+  SearchTracks(title:String):Observable<Track[]>{
+    return this.http.get<Track[]>(this.searchUrl+'/'+title).pipe(
       retry(1),catchError(this.errorHandler));
   }
 

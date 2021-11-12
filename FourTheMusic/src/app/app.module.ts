@@ -14,6 +14,7 @@ import { ConcertService } from './services/concert.service';
 import { LocationService } from './services/location.service';
 import { GenreServiceService } from './services/genre-service.service';
 import { AuthenticationService } from './services/authentication.service';
+import { TrackSearchComponent } from './components/track-search/track-search.component';
 
 
 const routes: Routes = [
@@ -28,7 +29,8 @@ const routes: Routes = [
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    TestCompComponent
+    TestCompComponent,
+    TrackSearchComponent
   ],
   imports: [
     BrowserModule,
