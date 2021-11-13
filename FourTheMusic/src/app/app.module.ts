@@ -16,6 +16,7 @@ import { GenreServiceService } from './services/genre-service.service';
 import { AuthenticationService } from './services/authentication.service';
 import { TrackSearchComponent } from './components/track-search/track-search.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ConcertComponent } from './components/concert/concert.component';
 
 
 const routes: Routes = [
@@ -31,7 +32,8 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     TestCompComponent,
-    TrackSearchComponent
+    TrackSearchComponent,
+    ConcertComponent
   ],
   imports: [
     BrowserModule,

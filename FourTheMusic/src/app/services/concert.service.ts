@@ -33,7 +33,7 @@ export class ConcertService {
   DeleteConcert(concert_id:number):Observable<Concert>{
     this.httpOptions.headers = this.httpOptions.headers.set(
       'Content-Type','application/json;charset=utf-8');
-    return this.http.delete<Concert>(this.baseurl);
+    return this.http.delete<Concert>(this.baseurl+'/'+concert_id);
   }
 
   errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
