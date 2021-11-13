@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { Playlist, Track } from 'src/app/interfaces/playlist';
 import { PlaylistService } from 'src/app/services/playlist.service';
@@ -13,6 +14,8 @@ export class PlaylistManagerComponent implements OnInit {
   playlist_id:number=0;
   tracks:Track[]=[];
   newPlaylist:Playlist[]=[];
+  faThumbsUp=faThumbsUp;
+  faThumbsDown=faThumbsDown;
 
   constructor(private service:PlaylistService) { }
 
@@ -28,7 +31,16 @@ export class PlaylistManagerComponent implements OnInit {
   })
 }
 
-
+  // viewPlaylist(playlist_id:number):void{
+  //   this.service.GetPlaylist(playlist_id).subscribe(list=>{
+  //     let {playlist_id,playlistName,tracks}=list;
+  //     for(const track of this.tracks){
+  //       let{track_id, title, artist, album} = track;
+  //       this.tracks.push({track_id, title, artist, album});
+  //       console.log(track);
+  //     }
+  //   });
+  // }
 
   ngOnInit(): void {
   }
