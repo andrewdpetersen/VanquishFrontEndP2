@@ -6,7 +6,6 @@ import { AuthInterceptor } from '../interceptor/auth.interceptor';
 
 
 
-
 interface newUser {
   firstName: string,
   lastName: string,
@@ -18,60 +17,66 @@ interface newUser {
 }
 
 interface logUser {
-  token: string;
   username: string,
   password: string
 }
 
-@Injectable({
-  providedIn: 'root',
-})
-
+@Injectable({providedIn: 'root'})
 export class AuthenticationService {
-
   getAuthToken(){
-    return localStorage.getItem('token');
+    return 'token'
   }
 
   private apiUrl = 'http://localhost:8080/4TheMusic/';
 
   private httpOptions = {
-    headers: new HttpHeaders(
-      {'Content-Type': 'application/json', 'Authorization': `token`})
+    headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': `token`}),
+    observe: "response",
+    responseType: "json",
+    withCredentials: true
   };
 
-  constructor(private http: HttpClient) {
+  // private handleError : any;
 
-  }
+
+  constructor(private http: HttpClient) {}
+
 
   //user login
-  userLogin(logUser : logUser): Observable<logUser> {
-    this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8').set('Authentication', 'token')
-    console.log(JSON.stringify(this.httpOptions.headers))
-
-    return this.http.post<logUser>(this.apiUrl + 'login',
-    JSON.stringify(logUser),
-    this.httpOptions)
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
+  userLogin(logUser : logUser) {
+    return this.http.post<logUser>(this.apiUrl + 'login', JSON.stringify(logUser),{
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
+      observe: "response",
+      responseType: "json"
+    })
+      .pipe(retry(1), catchError(this.handleError))
+      .subscribe(resp => {
+        console.log(resp.headers.get("Authorization"));
+        console.log(resp.body);
+      });
   }
 
+  // gettoken() {
+
+  // }
+  // `${APIURL}/user/${this.state.login ? 'login' : 'signup'}`
+
+
   //register function
-  userRegister(newUser: newUser): Observable<newUser> {
-   console.log(newUser)
+  userRegister(newUser: newUser){
+    console.log(newUser)
 
-    let result = this.http.post<newUser>(this.apiUrl + 'register/basic', JSON.stringify(newUser), this.httpOptions)
-    .pipe(
-      retry(0),
-      catchError(this.handleError)
-     
-    )
+    let result = this.http.post<newUser>(this.apiUrl + 'register/basic', JSON.stringify(newUser), {
+      headers: new HttpHeaders({'Content-Type': 'application/json',
+        'Authorization': ``}),
+      observe: "response",
+      responseType: "json"
+    })
+      .pipe(retry(1), catchError(this.handleError))
+      .subscribe(resp => {
+        console.log((resp.headers.getAll('Authorization')));
+      });
 
-
-    console.log(result);
-    return result;
   }
 
   handleError(error: HttpErrorResponse) {
