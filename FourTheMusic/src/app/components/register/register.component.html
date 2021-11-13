@@ -1,7 +1,7 @@
 
 <div class="text-center mt-5">
-    <form [formGroup]="registerForm" (ngSubmit) = "userRegister()"  class="form-control" id="form"style="max-width: 350px; margin: auto">
-      <h1 class="h2" id="h2">Sign Up</h1>
+  <form [formGroup]="registerForm" (ngSubmit) = "userRegister()"  class="form-control" id="form"style="max-width: 350px; margin: auto">
+    <h1 class="h2" id="h2">Sign Up</h1>
 
       <div class = "container">
      
@@ -53,6 +53,7 @@
           required
           autofocus
         />
+    
       <label for="username" class="visually-hidden">Username</label>
       <input
         formControlName="username"
@@ -96,5 +97,5 @@
         <a href="">Already have an account? Sign In</a>
       </div>
 
-    </form>
-  </div>
+  </form>
+</div>
