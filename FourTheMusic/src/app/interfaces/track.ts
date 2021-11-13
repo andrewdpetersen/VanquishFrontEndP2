@@ -10,7 +10,7 @@ export interface Track {
     album:
     {
         ID:number,
-        albumTitle:String,
+        album_title:String,
         date:String,
         genre:
         {

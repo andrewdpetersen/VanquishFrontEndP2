@@ -15,6 +15,7 @@ import { LocationService } from './services/location.service';
 import { GenreServiceService } from './services/genre-service.service';
 import { AuthenticationService } from './services/authentication.service';
 import { TrackSearchComponent } from './components/track-search/track-search.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 const routes: Routes = [
@@ -38,7 +39,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FontAwesomeModule
   ],
   providers: [GenreServiceService,
     ConcertService,
