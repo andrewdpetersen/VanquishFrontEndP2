@@ -20,6 +20,7 @@ export class TrackSearchComponent implements OnInit {
   artistListResults: Artist[]=[];
   albumListResults: Album[]=[];
   ratedTrack:Track[]=[];
+  albumTracks:Track[]=[];
 
   constructor(private service:TrackService,
     private service2:ArtistService,
@@ -70,6 +71,15 @@ export class TrackSearchComponent implements OnInit {
   });
   }
 
+  viewTracks(album:Album):void{
+    this.service.viewTracks(album).subscribe(data=>{
+      for(const single of data){
+        let {track_id, title, artist, album} = single;
+        this.albumTracks.push({track_id, title, artist, album})
+        console.log(single);
+      }
+    });
+  }
   ngOnInit(): void {
   }
 

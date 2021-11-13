@@ -40,5 +40,18 @@
         <h6>Release Date: {{album.date}}</h6>
         <h6>Genre: {{album.genre.genre_name}}</h6>    
         <br>
+        <button (click)="viewTracks(album)" value="VIEW">VIEW TRACKS</button>
     </div>
+
+    <div *ngFor="let track of albumTracks" class="albumTracks">
+        <h6>Track ID: {{track.track_id}}</h6>
+        <h4>Title: {{track.title}}</h4>
+        <h6>Artist: {{track.artist}}</h6>
+        <h6>Album: {{track.ablum>></h6>
+        <button (click)="likeThis(track)" value="LIKE">LIKE</button>
+        <br>
+        <button (click)="dislikeThis(track)" value="DISLIKE">DISLIKE</button>
+        <br>
+    </div>
+
 </div>
