@@ -6,15 +6,15 @@ import { AuthInterceptor } from '../interceptor/auth.interceptor';
 
 
 
-
-interface newUser {
-  firstName: string,
-  lastName: string,
-  city: string,
-  state: string,
-  username: string,
-  password: string,
-  email: string
+ interface newUser {
+    token: string,
+    firstName: string,
+    lastName: string,
+    city: string,
+    state: string,
+    username: string,
+    password: string,
+    email: string
 }
 
 interface logUser {
@@ -26,30 +26,29 @@ interface logUser {
 @Injectable({
   providedIn: 'root',
 })
-
 export class AuthenticationService {
+  
+ 
+getAuthToken(){
+  return 'token'
+}
 
-  getAuthToken(){
-    return localStorage.getItem('token');
-  }
+private apiUrl = 'http://localhost:8080/4TheMusic/';
 
-  private apiUrl = 'http://localhost:8080/4TheMusic/';
+private httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json',
+  'Authorization': `token`})
+};
 
-  private httpOptions = {
-    headers: new HttpHeaders(
-      {'Content-Type': 'application/json', 'Authorization': `token`})
-  };
+// private handleError : any;
 
-  constructor(private http: HttpClient) {
 
-  }
+  constructor(private http: HttpClient) {}
+
 
   //user login
   userLogin(logUser : logUser): Observable<logUser> {
-    this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8').set('Authentication', 'token')
-    console.log(JSON.stringify(this.httpOptions.headers))
-
-    return this.http.post<logUser>(this.apiUrl + 'login',
+    return this.http.post<logUser>(this.apiUrl + 'login', 
     JSON.stringify(logUser),
     this.httpOptions)
     .pipe(
@@ -58,19 +57,31 @@ export class AuthenticationService {
     )
   }
 
+  // gettoken() {
+    
+  // }
+  // `${APIURL}/user/${this.state.login ? 'login' : 'signup'}`
+
+
   //register function
   userRegister(newUser: newUser): Observable<newUser> {
-   console.log(newUser)
+  console.log(newUser),
+   console.log(newUser.firstName)
+   console.log(this.httpOptions)
 
-    let result = this.http.post<newUser>(this.apiUrl + 'register/basic', JSON.stringify(newUser), this.httpOptions)
+   this.httpOptions.headers =
+   this.httpOptions.headers.set('Authorization', `this.token`);
+   localStorage.setItem('token', `this.token`)
+   console.log( localStorage.setItem('token', `this.token`))
+    let result = this.http.post<newUser>(this.apiUrl + 'register/basic',
+    JSON.stringify(newUser),
+  this.httpOptions)
     .pipe(
-      retry(0),
+      retry(1),
       catchError(this.handleError)
      
     )
-
-
-    console.log(result);
+    console.log(result)
     return result;
   }
 
@@ -83,4 +94,5 @@ export class AuthenticationService {
   loggedOut() {
     return localStorage.clear()
   }
+
 }
