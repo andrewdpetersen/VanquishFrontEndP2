@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry} from 'rxjs/operators';
+import { AuthInterceptor } from '../interceptor/auth.interceptor';
+
+
+
 
 interface newUser {
   firstName: string,
@@ -24,6 +28,7 @@ interface logUser {
 })
 
 export class AuthenticationService {
+
   getAuthToken(){
     return localStorage.getItem('token');
   }
@@ -61,7 +66,9 @@ export class AuthenticationService {
     .pipe(
       retry(0),
       catchError(this.handleError)
+     
     )
+
 
     console.log(result);
     return result;

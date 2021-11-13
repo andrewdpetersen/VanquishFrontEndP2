@@ -3,56 +3,57 @@
   <form [formGroup]="registerForm" (ngSubmit) = "userRegister()"  class="form-control" id="form"style="max-width: 350px; margin: auto">
     <h1 class="h2" id="h2">Sign Up</h1>
 
-    <div class = "container">
-
-      <label for="firstName" class="visually-hidden">Firstname</label>
-      <input
-        formControlName="firstName"
-        type="text"
-        id="firstname"
-        name="firstname"
-        class="form-control"
-        placeholder="Firstname"
-        value=""
-        required
-        autofocus
-      />
-      <label for="lastName" class="visually-hidden">Lastname</label>
-      <input
-        formControlName="lastName"
-        type="text"
-        id="lastname"
-        name="lastname"
-        class="form-control"
-        placeholder="Lastname"
-        value=""
-        required
-        autofocus
-      />
-      <label for="city" class="visually-hidden">City</label>
-      <input
-        formControlName="city"
-        type="text"
-        id="city"
-        name="city"
-        class="form-control"
-        placeholder="City"
-        value=""
-        required
-        autofocus
-      />
-      <label for="state" class="visually-hidden">State</label>
-      <input
-        formControlName="state"
-        type="text"
-        id="state"
-        name="state"
-        class="form-control"
-        placeholder="State"
-        value=""
-        required
-        autofocus
-      />
+      <div class = "container">
+     
+        <label for="firstName" class="visually-hidden">Firstname</label>
+        <input
+          formControlName="firstName"
+          type="text"
+          id="firstname"
+          name="firstname"
+          class="form-control"
+          placeholder="Firstname"
+          value=""
+          required
+          autofocus
+        />
+        <label for="lastName" class="visually-hidden">Lastname</label>
+        <input
+          formControlName="lastName"
+          type="text"
+          id="lastname"
+          name="lastname"
+          class="form-control"
+          placeholder="Lastname"
+          value=""
+          required
+          autofocus
+        />
+        <label for="city" class="visually-hidden">City</label>
+        <input
+          formControlName="city"
+          type="text"
+          id="city"
+          name="city"
+          class="form-control"
+          placeholder="City"
+          value=""
+          required
+          autofocus
+        />
+        <label for="state" class="visually-hidden">State</label>
+        <input
+          formControlName="state"
+          type="text"
+          id="state"
+          name="state"
+          class="form-control"
+          placeholder="State"
+          value=""
+          required
+          autofocus
+        />
+    
       <label for="username" class="visually-hidden">Username</label>
       <input
         formControlName="username"
@@ -93,8 +94,8 @@
       <div class="d-grid gap-2 mt-3">
         <button class="btn btn-primary" type="submit">Sign Up</button>
       </div>
-      <a href="">Already have an account? Sign In</a>
-    </div>
+        <a href="">Already have an account? Sign In</a>
+      </div>
 
   </form>
 </div>
