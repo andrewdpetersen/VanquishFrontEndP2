@@ -1,0 +1,10 @@
+<div>
+    Enter the name of your playlist:
+    <input type="text" [(ngModel)]='playlistName'>
+    <button (click)='createPlaylist(playlistName)'>Create Playlist</button>
+</div>
+<br>
+<div *ngFor="let playlist of newPlaylist">
+    <h6>{{playlist.playlist_id}}</h6><br>
+    <h4>{{playlist.playlistName}}</h4>
+</div>
