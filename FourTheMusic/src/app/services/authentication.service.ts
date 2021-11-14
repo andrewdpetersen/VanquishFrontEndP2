@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry} from 'rxjs/operators';
 
+
  interface newUser {
-    token: string;
-    firstname: string,
-    lastname: string,
+    firstName: string,
+    lastName: string,
     city: string,
     state: string,
     username: string,
     password: string,
     email: string
-
 }
 
 interface logUser {
-  token: string;
   username: string,
   password: string
 }
@@ -25,74 +23,77 @@ interface logUser {
   providedIn: 'root',
 })
 export class AuthenticationService {
-  
+
+
 private apiUrl = 'http://localhost:8080/4TheMusic/';
 
 private httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=utf-8', 'Authentication': 'token'}),
+  headers: new HttpHeaders({'Content-Type': 'application/json',
+  'Authorization': 'token'})
 };
-// private handleError : any;
 
 
-  constructor(private http: HttpClient) {}
-
+  constructor(private http: HttpClient) {
+  }
 
   //user login
   userLogin(logUser : logUser): Observable<logUser> {
-    this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8').set('Authentication', 'token')
-    console.log(JSON.stringify(this.httpOptions.headers))
-    return this.http.post<logUser>('http://localhost:8080/user/login', 
-    JSON.stringify(logUser.token),
+
+    localStorage.setItem('token '  , logUser.username)
+    let userToken = localStorage.getItem('token ')
+    console.log(userToken)
+    return this.http.post<logUser>(this.apiUrl + 'user/login', 
+    JSON.stringify(logUser),
     this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
     )
   }
- 
 
-  public newHead = this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8')
+
+/**
+ * @author Erika Johnson
+ * @param newUser 
+ * @returns 
+ *  Once a user registers/signs in, they are given a token, 
+ * [Normally we would use a JWT token but in this instance we are utilizing the users username]
+ * which will track their requests through-out
+ * the application, until they sign out
+ */
 
 
   //register function
   userRegister(newUser: newUser): Observable<newUser> {
-   this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8').set('Authentication', 'token')
-   console.log(JSON.stringify(this.httpOptions.headers))
-    return this.http.post<newUser>('http://localhost:8080/user/register/basic',
-    JSON.stringify(newUser.token),
-  this.httpOptions)
+  console.log(newUser),
+   console.log(newUser.firstName)
+   console.log(this.httpOptions)
+  
+   localStorage.setItem('token '  , newUser.username)
+    let userToken = localStorage.getItem('token ')
+   console.log(userToken);
+    return this.http.post<newUser>(this.apiUrl + 'user/register/basic',
+    JSON.stringify(newUser),
+    this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
     )
   }
-
+   
   handleError(error: HttpErrorResponse) {
     console.log(error)
     return throwError(() => error)
   }
 
+
+
   //logout function
   loggedOut() {
-    return localStorage.clear()
+    localStorage.clear()
+    alert("You are logged out")
   }
-  // errorHand1(error:any) {
-  //   let errorMessage = ''
-  //   if(error.error instanceof ErrorEvent) {
-  //     errorMessage = error.error.message;
-  //   } else {
-  //     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`
-  //   }
-  //   console.log(errorMessage)
-  //   return throwError(() =>errorMessage);
-  // }
 
-  // userRegister(firstname: string, lastname: string, city: string, 
-  //   state: string, username: string, password: string, 
-  //   email: string): Observable<any> {
-  //   return this.http.post(this.apiUrl + 'register', {
-  //     firstname, lastname, city, state, username,
-  //     password,email
-  //   }, this.httpOptions)
-  // }
 }
+
+
