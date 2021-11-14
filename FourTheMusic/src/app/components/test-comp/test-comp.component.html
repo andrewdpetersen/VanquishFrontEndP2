@@ -1,0 +1,11 @@
+
+<div>
+    <input type="number" [(ngModel)]='num'>
+    <button (click)="displayGenre(run(num))" value="Run">Run</button>
+
+    <button (click)="displayGenre(postG())" value="Post">Post</button>
+
+    <br><br>
+
+    <button (click)="testAll(runGenre(),runLocation(),runConcert(),runTrack())">TestAll</button>
+</div>

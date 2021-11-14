@@ -9,15 +9,20 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { AuthenticationService } from './services/authentication.service';
+import { TestCompComponent } from './components/test-comp/test-comp.component';
 import { PremiumNavBarComponent } from './premium-nav-bar/premium-nav-bar.component';
+import { ConcertService } from './services/concert.service';
+import { LocationService } from './services/location.service';
+import { GenreServiceService } from './services/genre-service.service';
+import { AuthenticationService } from './services/authentication.service';
 
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'navbarBasic', component: NavbarComponent},
-  {path: 'navbarPremium', component: PremiumNavBarComponent}
+  {path: 'navbarPremium', component: PremiumNavBarComponent},
+  {path: 'test', component: TestCompComponent}
   
 ]
 @NgModule({
@@ -26,7 +31,8 @@ const routes: Routes = [
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    PremiumNavBarComponent
+    TestCompComponent,
+    PremiumNavBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,9 +42,10 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-
-  //the token HTTP_INTERCEPTORS to use the classes (useClass) AuthInterceptor. In order to get this working, we need to specify multi: true so Angular knows that multiple values (or classes) are going to be used.
-  providers: [AuthenticationService,],
+  providers: [GenreServiceService,
+    ConcertService,
+    LocationService,
+    AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
