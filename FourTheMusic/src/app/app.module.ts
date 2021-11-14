@@ -14,6 +14,10 @@ import { ConcertService } from './services/concert.service';
 import { LocationService } from './services/location.service';
 import { GenreServiceService } from './services/genre-service.service';
 import { AuthenticationService } from './services/authentication.service';
+import { TrackSearchComponent } from './components/track-search/track-search.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ConcertComponent } from './components/concert/concert.component';
+import { PlaylistManagerComponent } from './components/playlist-manager/playlist-manager.component';
 
 
 const routes: Routes = [
@@ -28,7 +32,10 @@ const routes: Routes = [
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    TestCompComponent
+    TestCompComponent,
+    TrackSearchComponent,
+    ConcertComponent,
+    PlaylistManagerComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +43,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FontAwesomeModule
   ],
   providers: [GenreServiceService,
     ConcertService,

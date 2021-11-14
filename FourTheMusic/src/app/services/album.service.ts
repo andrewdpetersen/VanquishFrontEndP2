@@ -1,16 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, Observable, retry, throwError } from 'rxjs';
 import { Album } from '../interfaces/album';
-import { Track } from '../interfaces/track';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TrackService {
-  private baseurl = 'http://localhost:8080/4TheMusic/track';
-  private searchUrl = 'http://localhost:8080/4TheMusic/track/search';
+export class AlbumService {
+  private baseurl = 'http://localhost:8080/4TheMusic/album';
+  private searchUrl = 'http://localhost:8080/4TheMusic/album/search';
 
   constructor(private http:HttpClient) { }
 
@@ -20,18 +18,8 @@ export class TrackService {
     }),
   };
 
-  GetTrack(track_id:number):Observable<Track>{
-    return this.http.get<Track>(this.baseurl+'/'+track_id).pipe(
-      retry(1),catchError(this.errorHandler));
-  }
-
-  SearchTracks(title:String):Observable<Track[]>{
-    return this.http.get<Track[]>(this.searchUrl+'/'+title).pipe(
-      retry(1),catchError(this.errorHandler));
-  }
-
-  viewTracks(album:Album):Observable<Track[]>{
-    return this.http.get<Track[]>(this.baseurl+'/byAlbum/'+album.id).pipe(
+  SearchAlbums(title:String):Observable<Album[]>{
+    return this.http.get<Album[]>(this.searchUrl+'/'+title).pipe(
       retry(1),catchError(this.errorHandler));
   }
 

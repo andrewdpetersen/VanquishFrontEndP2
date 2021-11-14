@@ -1,14 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { Concert } from '../interfaces/concert';
+import { catchError, Observable, retry, throwError } from 'rxjs';
+import { Playlist } from '../interfaces/playlist';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConcertService {
-  private baseurl = 'http://localhost:8080/4TheMusic/concert';
+export class PlaylistService {
+  private baseurl = 'http://localhost:8080/4TheMusic/playlist';
 
   constructor(private http:HttpClient) { }
 
@@ -17,23 +16,17 @@ export class ConcertService {
       'Content-Type': 'application/json;charset=utf-8'
     }),
   };
-  
-  GetConcert(concert_id:number):Observable<Concert>{
-    return this.http.get<Concert>(this.baseurl+'/'+concert_id).pipe(
+
+  GetPlaylist(playlist_id:number):Observable<Playlist>{
+    return this.http.get<Playlist>(this.baseurl+'/'+playlist_id).pipe(
       retry(1),catchError(this.errorHandler));
   }
 
-  PostConcert(concert:Concert):Observable<Concert>{
+  PostPlaylist(playlist:Playlist):Observable<Playlist>{
     this.httpOptions.headers = this.httpOptions.headers.set(
       'Content-Type','application/json;charset=utf-8');
-    return this.http.post<Concert>(this.baseurl,JSON.stringify(concert),this.httpOptions).pipe(
+      return this.http.post<Playlist>(this.baseurl,JSON.stringify(playlist),this.httpOptions).pipe(
         retry(1),catchError(this.errorHandler));
-  }
-
-  DeleteConcert(concert_id:number):Observable<Concert>{
-    this.httpOptions.headers = this.httpOptions.headers.set(
-      'Content-Type','application/json;charset=utf-8');
-    return this.http.delete<Concert>(this.baseurl+'/'+concert_id);
   }
 
   errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
@@ -48,5 +41,4 @@ export class ConcertService {
     console.log(errorMessage);
     return throwError(errorMessage);
   }
-  
 }

@@ -75,7 +75,7 @@ export class TestCompComponent implements OnInit {
     })
     concert.subscribe(data3=>{
       console.log("concert_id: "+data3.concert_id);
-      console.log("date: "+data3.concert_date);
+      console.log("date: "+data3.date);
       console.log("name: "+data3.name);
       console.log("location_id: "+data3.location.location_id);
       console.log("city: "+data3.location.city);

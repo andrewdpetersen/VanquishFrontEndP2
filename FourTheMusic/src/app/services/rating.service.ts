@@ -1,14 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { Concert } from '../interfaces/concert';
+import { catchError, Observable, retry, throwError } from 'rxjs';
+import { Track } from '../interfaces/track';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConcertService {
-  private baseurl = 'http://localhost:8080/4TheMusic/concert';
+export class RatingService {
+  private baseUrl = 'http://localhost:8080/4TheMusic'; 
 
   constructor(private http:HttpClient) { }
 
@@ -17,23 +16,19 @@ export class ConcertService {
       'Content-Type': 'application/json;charset=utf-8'
     }),
   };
-  
-  GetConcert(concert_id:number):Observable<Concert>{
-    return this.http.get<Concert>(this.baseurl+'/'+concert_id).pipe(
+
+  likeTrack(track:Track):Observable<Track>{
+    this.httpOptions.headers = this.httpOptions.headers.set(
+      'Content-Type','application/json;charset=utf-8');
+    return this.http.post<Track>(this.baseUrl+'/like',JSON.stringify(track),this.httpOptions).pipe(
       retry(1),catchError(this.errorHandler));
   }
 
-  PostConcert(concert:Concert):Observable<Concert>{
+  dislikeTrack(track:Track):Observable<Track>{
     this.httpOptions.headers = this.httpOptions.headers.set(
       'Content-Type','application/json;charset=utf-8');
-    return this.http.post<Concert>(this.baseurl,JSON.stringify(concert),this.httpOptions).pipe(
-        retry(1),catchError(this.errorHandler));
-  }
-
-  DeleteConcert(concert_id:number):Observable<Concert>{
-    this.httpOptions.headers = this.httpOptions.headers.set(
-      'Content-Type','application/json;charset=utf-8');
-    return this.http.delete<Concert>(this.baseurl+'/'+concert_id);
+    return this.http.post<Track>(this.baseUrl+'/dislike',JSON.stringify(track),this.httpOptions).pipe(
+      retry(1),catchError(this.errorHandler));
   }
 
   errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
@@ -48,5 +43,4 @@ export class ConcertService {
     console.log(errorMessage);
     return throwError(errorMessage);
   }
-  
 }
