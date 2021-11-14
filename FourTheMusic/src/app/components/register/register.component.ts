@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup} from '@angular/forms';
+
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -11,67 +12,47 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   
 
+  Success: boolean = false
+  SignupFailed: boolean = false
+  errorMessage: string = ''
+
   registerForm: FormGroup | any;
-  // registerForm: FormGroup = this.formBuilder.group({
-  //       firstname: '',
-  //       lastname: '',
-  //       city: '',
-  //       state: '',
-  //       username: '',
-  //       password: '', 
-  //       email: ''
 
-  // })
-
-  constructor(private formBuilder: FormBuilder, private authService: AuthenticationService,
-    private http:HttpClient, private router: Router ) { 
-      // this.authService = authService;
-    }
+  constructor(private formBuilder: FormBuilder, 
+    private authService: AuthenticationService, 
+    private router: Router) {  }
 
   ngOnInit(): void {
 
-
     this.registerForm = this.formBuilder.group({
-      firstName: '',
-      lastName: '',
-      city: '',
-      state: '',
+      firstName: '', 
+      lastName: '', 
+      city: '', 
+      state: '', 
       username: '',
       password: '', 
-      email: ''
+      email: '', 
     })
+
   }
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=utf-8'}),
-  };
-  // onSubmit(): void {
-  //   console.log(this.registerForm.getRawValue());
-  //   this.http.post("http://localhost:8080/4TheMusic/register/basic", 
-  //   this.registerForm.getRawValue(), {
-  //     headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=utf-8'})
-  //   }
-  //     )
-  //   .subscribe( res => {
-    
-  //     console.log(res),
-  //     (error: any) => console.log(error)
-  //   this.router.navigate(['/navbar'])
-  //   }),
-  //   this.registerForm.reset()
-  // }
-  // let token = Object.values(res).toString();
-  // localStorage.setItem("Token", token);
- 
+
+  
+
   userRegister() {
-    
 const val = this.registerForm.getRawValue();
     console.log(val)
     this.authService.userRegister(val).subscribe( 
       res => { 
-      console.log(res),
-      (error: any) => console.log(error)
+        this.Success = true;
+        this.SignupFailed = false;
+      //  console.log(res),
+      //   console.log(Object.values(res)),
+      // (error: any) => console.log(error)
+    
+      this.router.navigate(['/navbarBasic'])
     })
     this.registerForm.reset();
+  
   }
 }
 
