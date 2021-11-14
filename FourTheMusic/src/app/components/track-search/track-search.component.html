@@ -50,14 +50,19 @@
     </div>
 
     <div *ngFor="let track of albumTracks" class="albumTracks">
-        <h6>Track ID: {{track.track_id}}</h6>
-        <h4>Title: {{track.title}}</h4>
-        <h6>Artist: {{track.artist}}</h6>
-        <h6>Album: {{track.ablum>></h6>
-        <button (click)="likeThis(track)" value="LIKE">LIKE</button>
-        <br>
-        <button (click)="dislikeThis(track)" value="DISLIKE">DISLIKE</button>
-        <br>
+        <div class="track">
+            <div class="column1">
+                <p><img src={{track.artist.image_url}} height="100" width="100"/> </p>
+                </div>
+            <div class="column2">
+            <h3>{{track.title}}
+                <fa-icon (click)="likeThis(track)" [ngStyle]="{'color': 'green'}" [icon]="faThumbsUp"></fa-icon>
+                &nbsp;<fa-icon (click)="dislikeThis(track)" [ngStyle]="{'color': 'red'}" [icon]="faThumbsDown"></fa-icon></h3>
+            <p>{{track.artist.name}}
+                <br>
+                {{track.album.album_title}}<br>
+            </p>
+        </div>
     </div>
 
 </div>
