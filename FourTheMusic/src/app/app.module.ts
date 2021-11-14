@@ -10,7 +10,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 
-import { AuthenticationService } from './services/authentication.service';
 import { PremiumNavBarComponent } from './premium-nav-bar/premium-nav-bar.component';
 
 import { TestCompComponent } from './components/test-comp/test-comp.component';
@@ -39,7 +38,7 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
 
-    PremiumNavBarComponent
+    PremiumNavBarComponent,
 
     TestCompComponent,
     TrackSearchComponent,
@@ -59,7 +58,6 @@ const routes: Routes = [
 
 
   //the token HTTP_INTERCEPTORS to use the classes (useClass) AuthInterceptor. In order to get this working, we need to specify multi: true so Angular knows that multiple values (or classes) are going to be used.
-  providers: [AuthenticationService,],
 
   providers: [GenreServiceService,
     ConcertService,
