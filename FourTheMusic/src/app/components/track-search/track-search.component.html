@@ -1,0 +1,63 @@
+<p>track-search works!</p>
+<div>
+    <input type="text" [(ngModel)]='search'>
+    <br><br>
+    <label for="selectSearch">Search for:</label>
+    <select [(ngModel)]='searchType' id='selectSearch'>
+        <option value="track">Tracks</option>
+        <option value="artist">Artists</option>
+        <option value="album">Albums</option>
+    </select>
+</div>
+<br>
+<div>
+    <button (click)="listSearch(search,searchType)" value="Search">Search</button>
+</div>
+<br>
+
+<div class="list-container">
+    <div *ngFor="let track of trackListResults" class="trackList">
+        <div class="track">
+            <div class="column1">
+                <p><img src={{track.artist.image_url}} height="100" width="100"/> </p>
+                </div>
+            <div class="column2">
+            <h3>{{track.title}}
+                <fa-icon (click)="likeThis(track)" [ngStyle]="{'color': 'green'}" [icon]="faThumbsUp"></fa-icon>
+                &nbsp;<fa-icon (click)="dislikeThis(track)" [ngStyle]="{'color': 'red'}" [icon]="faThumbsDown"></fa-icon></h3>
+            <p>{{track.artist.name}}
+                <br>
+                {{track.album.album_title}}<br>
+            </p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngFor="let artist of artistListResults" class="artistList">
+        <h6>Artist ID: {{artist.ID}}</h6>
+        <h4>Name: {{artist.name}}</h4>
+        <h6>Image: {{artist.image_url}}</h6>
+        <br>
+    </div>
+
+    <div *ngFor="let album of albumListResults" class="albumList">
+        <h6>Album ID: {{album.id}}</h6>
+        <h4>Title: {{album.album_title}}</h4>
+        <h6>Release Date: {{album.date}}</h6>
+        <h6>Genre: {{album.genre.genre_name}}</h6>    
+        <br>
+        <button (click)="viewTracks(album)" value="VIEW">VIEW TRACKS</button>
+    </div>
+
+    <div *ngFor="let track of albumTracks" class="albumTracks">
+        <h6>Track ID: {{track.track_id}}</h6>
+        <h4>Title: {{track.title}}</h4>
+        <h6>Artist: {{track.artist}}</h6>
+        <h6>Album: {{track.ablum>></h6>
+        <button (click)="likeThis(track)" value="LIKE">LIKE</button>
+        <br>
+        <button (click)="dislikeThis(track)" value="DISLIKE">DISLIKE</button>
+        <br>
+    </div>
+
+</div>
