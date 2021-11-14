@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { Album } from '../interfaces/album';
 import { Track } from '../interfaces/track';
 
 @Injectable({
@@ -26,6 +27,11 @@ export class TrackService {
 
   SearchTracks(title:String):Observable<Track[]>{
     return this.http.get<Track[]>(this.searchUrl+'/'+title).pipe(
+      retry(1),catchError(this.errorHandler));
+  }
+
+  viewTracks(album:Album):Observable<Track[]>{
+    return this.http.get<Track[]>(this.baseurl+'/byAlbum/'+album.id).pipe(
       retry(1),catchError(this.errorHandler));
   }
 
