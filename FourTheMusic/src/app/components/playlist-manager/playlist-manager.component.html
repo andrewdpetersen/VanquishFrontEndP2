@@ -1,6 +1,7 @@
 <div>
     Enter the name of your playlist:
     <input type="text" [(ngModel)]='playlistName'>
+    <br>
     <button (click)='createPlaylist(playlistName)'>Create Playlist</button>
 </div>
 <br>
@@ -10,7 +11,9 @@
     <br><button (click)='viewPlaylist(playlist.playlist_id)'>View Playlist</button>
 </div>
 
-<!-- Simple adding and removing track to playlist -->
 <div>
-
+    Enter playlist ID to view tracks:
+    <input type="number" [(ngModel)]='playlist_id'>
+    <br>
+    <button (click)='viewPlaylist(playlist_id)'>View Playlist</button>
 </div>
