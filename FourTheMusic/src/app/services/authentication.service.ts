@@ -30,20 +30,20 @@ export class AuthenticationService {
   private apiUrl = 'http://localhost:8080/4TheMusic/';
 
   private httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': `token`}),
+    headers: new HttpHeaders({'Content-Type': 'application/json', 'Token': ``}),
     observe: "response",
     responseType: "json",
     withCredentials: true
   };
 
-  // private handleError : any;
-
-
   constructor(private http: HttpClient) {}
-
 
   //user login
   userLogin(logUser : logUser) {
+    this.httpOptions.headers.set('Content-Type', 'application/json')
+
+    this.httpOptions.headers.append('Token', logUser.username)
+
     return this.http.post<logUser>(this.apiUrl + 'login', JSON.stringify(logUser),{
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
       observe: "response",
@@ -51,16 +51,10 @@ export class AuthenticationService {
     })
       .pipe(retry(1), catchError(this.handleError))
       .subscribe(resp => {
-        console.log(resp.headers.get("Authorization"));
+        console.log(resp.headers.keys());
         console.log(resp.body);
       });
   }
-
-  // gettoken() {
-
-  // }
-  // `${APIURL}/user/${this.state.login ? 'login' : 'signup'}`
-
 
   //register function
   userRegister(newUser: newUser){
@@ -68,13 +62,13 @@ export class AuthenticationService {
 
     let result = this.http.post<newUser>(this.apiUrl + 'register/basic', JSON.stringify(newUser), {
       headers: new HttpHeaders({'Content-Type': 'application/json',
-        'Authorization': ``}),
+        'Token': ``}),
       observe: "response",
       responseType: "json"
     })
       .pipe(retry(1), catchError(this.handleError))
       .subscribe(resp => {
-        console.log((resp.headers.getAll('Authorization')));
+        console.log((resp.headers.getAll('Token')));
       });
 
   }
