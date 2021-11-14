@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
       this.loginForm = this.formBuilder.group({
-        username: ['', Validators.required],
-        password: ['', Validators.required], 
+        username: '', 
+        password: '', 
       })
   }
 
@@ -42,12 +42,6 @@ export class LoginComponent implements OnInit {
       alert('Welcome back ' + val.username),
       (error: any) => console.log(error)
     })
-    const user = this.authService.userLogin(val.values)
-    if(user){
-      console.log('Success')
-    } else {
-      console.log('UnSuccessful')
-    }
     this.loginForm.reset();
     this.router.navigate(['./navbarBasic'])
   }

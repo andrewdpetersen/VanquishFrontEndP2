@@ -98,13 +98,6 @@ private httpOptions = {
     return throwError(() => error)
   }
 
-  authUser(newUser:any) {
-    let UserArr = []
-    if(localStorage.getItem('firstName')) {
-      UserArr = JSON.parse(newUser.firstName)
-    }
-    return UserArr.find((p: { firstName: any; }) => p.firstName === newUser.firstName)
-  }
 
 
   //logout function
