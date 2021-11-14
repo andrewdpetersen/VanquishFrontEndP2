@@ -18,6 +18,10 @@
 <div class="list-container">
     <div *ngFor="let track of trackListResults" class="trackList">
         <div class="track">
+            <div class="column1">
+                <p><img src={{track.artist.image_url}} height="100" width="100"/> </p>
+                </div>
+            <div class="column2">
             <h3>{{track.title}}
                 <fa-icon (click)="likeThis(track)" [ngStyle]="{'color': 'green'}" [icon]="faThumbsUp"></fa-icon>
                 &nbsp;<fa-icon (click)="dislikeThis(track)" [ngStyle]="{'color': 'red'}" [icon]="faThumbsDown"></fa-icon></h3>
@@ -25,30 +29,9 @@
                 <br>
                 {{track.album.album_title}}<br>
             </p>
-            <p><img src={{track.artist.image_url}} height="100" width="100"/> </p>
+            </div>
         </div>
-        
-        
-        
-        <!-- <h6>Track ID: {{track.track_id}}</h6>
-        <h4>Title: {{track.title}}</h4>
-        <h6>Artist: {{track.artist.name}}</h6>
-        <h6>Album: {{track.album.album_title}}</h6>
-        <fa-icon (click)="likeThis(track)" [ngStyle]="{'color': 'green'}" [icon]="faThumbsUp"></fa-icon>
-        <fa-icon (click)="dislikeThis(track)" [ngStyle]="{'color': 'red'}" [icon]="faThumbsDown"></fa-icon>
-        <br> -->
     </div>
-
-    <!-- <div class="track">
-        <h3>{{track.title}}
-            <fa-icon (click)="onLike(task)" [ngStyle]="{'color': 'green'}" [icon]="faThumbsUp"></fa-icon>
-            &nbsp;<fa-icon (click)="onLike(task)" [ngStyle]="{'color': 'red'}" [icon]="faThumbsDown"></fa-icon></h3>
-        <p>{{track.artist}}
-            <br>
-            {{track.album}}<br>
-        </p>
-        <p><img src={{task.img_url}} height="100" width="100"/> </p>
-    </div> -->
 
     <div *ngFor="let artist of artistListResults" class="artistList">
         <h6>Artist ID: {{artist.ID}}</h6>
