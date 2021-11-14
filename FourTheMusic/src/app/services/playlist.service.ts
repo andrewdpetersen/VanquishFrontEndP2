@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
-import { Playlist } from '../interfaces/playlist';
+import { Playlist, Track } from '../interfaces/playlist';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,11 @@ export class PlaylistService {
 
   GetPlaylist(playlist_id:number):Observable<Playlist>{
     return this.http.get<Playlist>(this.baseurl+'/'+playlist_id).pipe(
+      retry(1),catchError(this.errorHandler));
+  }
+
+  GetTracksFromPlaylist(playlist_id:number):Observable<Track[]>{
+    return this.http.get<Track[]>(this.baseurl+'/tracks/'+playlist_id).pipe(
       retry(1),catchError(this.errorHandler));
   }
 

@@ -1,7 +1,7 @@
 export interface Playlist {
     playlist_id:number,
     playlistName:String,
-    tracks:Array<Track>
+    tracklist:Array<Track>
 }
 
 export interface Track {

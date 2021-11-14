@@ -17,3 +17,22 @@
     <br>
     <button (click)='viewPlaylist(playlist_id)'>View Playlist</button>
 </div>
+
+<div>
+    <div *ngFor="let track of tracklist" class="trackList">
+        <div class="track">
+            <div class="column1">
+                <p><img src={{track.artist.image_url}} height="100" width="100"/> </p>
+                </div>
+            <div class="column2">
+            <h3>{{track.title}}
+                <fa-icon (click)="likeThis(track)" [ngStyle]="{'color': 'green'}" [icon]="faThumbsUp"></fa-icon>
+                &nbsp;<fa-icon (click)="dislikeThis(track)" [ngStyle]="{'color': 'red'}" [icon]="faThumbsDown"></fa-icon></h3>
+            <p>{{track.artist.name}}
+                <br>
+                {{track.album.album_title}}<br>
+            </p>
+            </div>
+        </div>
+    </div>
+</div>
