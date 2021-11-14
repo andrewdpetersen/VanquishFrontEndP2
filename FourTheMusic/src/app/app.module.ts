@@ -28,7 +28,10 @@ const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'navbarBasic', component: NavbarComponent},
-  {path: 'navbarPremium', component: PremiumNavBarComponent}
+  {path: 'navbarPremium', component: PremiumNavBarComponent},
+  {path: 'concertScreen', component: ConcertComponent},
+  {path: 'searchScreen', component: TrackSearchComponent},
+  {path: 'playlistManager', component: PlaylistManagerComponent}
   
 ]
 @NgModule({
