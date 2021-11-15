@@ -11,16 +11,19 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 
 
+import { PremiumNavBarComponent } from './premium-nav-bar/premium-nav-bar.component';
+
+
 import { TestCompComponent } from './components/test-comp/test-comp.component';
 import { PremiumNavBarComponent } from './premium-nav-bar/premium-nav-bar.component';
 import { ConcertService } from './services/concert.service';
 import { LocationService } from './services/location.service';
 import { GenreServiceService } from './services/genre-service.service';
-import { AuthenticationService } from './services/authentication.service';
 import { TrackSearchComponent } from './components/track-search/track-search.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConcertComponent } from './components/concert/concert.component';
 import { PlaylistManagerComponent } from './components/playlist-manager/playlist-manager.component';
+import { AuthenticationService } from './services/authentication.service';
 
 
 
@@ -30,7 +33,13 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'navbarBasic', component: NavbarComponent},
   {path: 'navbarPremium', component: PremiumNavBarComponent},
+
   {path: 'test', component: TestCompComponent}
+
+  {path: 'concertScreen', component: ConcertComponent},
+  {path: 'searchScreen', component: TrackSearchComponent},
+  {path: 'playlistManager', component: PlaylistManagerComponent}
+
   
 ]
 @NgModule({
@@ -39,6 +48,9 @@ const routes: Routes = [
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
+
+    PremiumNavBarComponent,
+
     TestCompComponent,
     PremiumNavBarComponent,
     TrackSearchComponent,

@@ -1,14 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
-import { Playlist, Track } from '../interfaces/playlist';
 import { PlaylistTrack } from '../interfaces/playlist-track';
+import { Track } from '../interfaces/track';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PlaylistService {
-  private baseurl = 'http://localhost:8080/4TheMusic/playlist';
+export class PlaylistTrackService {
 
   constructor(private http:HttpClient) { }
 
@@ -18,27 +17,19 @@ export class PlaylistService {
     }),
   };
 
-  GetPlaylist(playlist_id:number):Observable<Playlist>{
-    return this.http.get<Playlist>(this.baseurl+'/'+playlist_id).pipe(
+  RemoveFromPlaylist(playlist_id:number,track_id:number):Observable<PlaylistTrack>{
+    console.log("Reached");
+    console.log(playlist_id);
+    console.log(track_id);
+    return this.http.delete<PlaylistTrack>('http://localhost:8080/4TheMusic/remove/'+playlist_id+'/'+track_id).pipe(
       retry(1),catchError(this.errorHandler));
+    console.log("Reached2");  
   }
 
-  GetTracksFromPlaylist(playlist_id:number):Observable<Track[]>{
-    return this.http.get<Track[]>(this.baseurl+'/tracks/'+playlist_id).pipe(
-      retry(1),catchError(this.errorHandler));
-  }
-
-  PostPlaylist(playlist:Playlist):Observable<Playlist>{
+  AddTrackToPlaylist(playlist_id:number,track:Track):Observable<PlaylistTrack>{
     this.httpOptions.headers = this.httpOptions.headers.set(
       'Content-Type','application/json;charset=utf-8');
-    const userToken = localStorage.getItem('token ');
-      return this.http.post<Playlist>(this.baseurl+'/'+userToken,JSON.stringify(playlist),this.httpOptions).pipe(
-        retry(1),catchError(this.errorHandler));
-  }
-
-  GetPlaylistsByUser():Observable<Playlist[]>{
-    const userToken = localStorage.getItem('token ');
-    return this.http.get<Playlist[]>(this.baseurl+'/user/'+userToken).pipe(
+    return this.http.post<PlaylistTrack>('http://localhost:8080/4TheMusic/add/'+playlist_id,JSON.stringify(track),this.httpOptions).pipe(
       retry(1),catchError(this.errorHandler));
   }
 

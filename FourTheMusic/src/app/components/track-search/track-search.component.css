@@ -11,10 +11,25 @@
     float: left;
     width: 70%;
   }
+
+  .column3{
+    float: left;
+    width: 20%;  
+  }
   
   /* Clear floats after the columns */
   .track:after {
     content: "";
     display: table;
     clear: both;
+  }
+
+  .columnA {
+    float: left;
+    width: 30%;
+  }
+  
+  .columnB{
+    float: left;
+    width: 90%;
   }
