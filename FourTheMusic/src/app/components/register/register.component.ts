@@ -1,8 +1,10 @@
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+
 
 @Component({
   selector: 'app-register',
@@ -20,7 +22,11 @@ export class RegisterComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, 
     private authService: AuthenticationService, 
-    private router: Router) {  }
+    private router: Router) {  
+
+
+    }
+
 
   ngOnInit(): void {
 
@@ -45,15 +51,19 @@ const val = this.registerForm.getRawValue();
       res => { 
         this.Success = true;
         this.SignupFailed = false;
-      //  console.log(res),
+       console.log(res),
+       console.log((val));
+       alert("Ready to search for your favorite artist " + val.firstName  + " and create your own playlist!"),
       //   console.log(Object.values(res)),
       // (error: any) => console.log(error)
-    
       this.router.navigate(['/navbarBasic'])
     })
-    this.registerForm.reset();
-  
+    this.registerForm.reset();   
   }
+
+
+ 
+
 }
 
 //if user registers (basic) navigate to home screen

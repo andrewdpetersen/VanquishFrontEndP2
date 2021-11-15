@@ -10,9 +10,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 
+
 import { PremiumNavBarComponent } from './premium-nav-bar/premium-nav-bar.component';
 
+
 import { TestCompComponent } from './components/test-comp/test-comp.component';
+import { PremiumNavBarComponent } from './premium-nav-bar/premium-nav-bar.component';
 import { ConcertService } from './services/concert.service';
 import { LocationService } from './services/location.service';
 import { GenreServiceService } from './services/genre-service.service';
@@ -24,14 +27,19 @@ import { AuthenticationService } from './services/authentication.service';
 
 
 
+
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'navbarBasic', component: NavbarComponent},
   {path: 'navbarPremium', component: PremiumNavBarComponent},
+
+  {path: 'test', component: TestCompComponent}
+
   {path: 'concertScreen', component: ConcertComponent},
   {path: 'searchScreen', component: TrackSearchComponent},
   {path: 'playlistManager', component: PlaylistManagerComponent}
+
   
 ]
 @NgModule({
@@ -44,6 +52,7 @@ const routes: Routes = [
     PremiumNavBarComponent,
 
     TestCompComponent,
+    PremiumNavBarComponent,
     TrackSearchComponent,
     ConcertComponent,
     PlaylistManagerComponent
@@ -56,7 +65,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
 
 

@@ -4,7 +4,11 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Album } from '../interfaces/album';
 import { Track } from '../interfaces/track';
+
+import { AuthenticationService } from './authentication.service';
+
 import { Ratio } from '../ratio';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +18,8 @@ export class TrackService {
   private searchUrl = 'http://localhost:8080/4TheMusic/track/search';
   private likeUrl = 'http://localhost:8080/4TheMusic/like';
   private dislikeUrl = 'http://localhost:8080/4TheMusic/dislike';
+
+
 
   constructor(private http:HttpClient) { }
 

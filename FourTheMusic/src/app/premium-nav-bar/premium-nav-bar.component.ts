@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
+
 
 @Component({
   selector: 'app-premium-nav-bar',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PremiumNavBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthenticationService) { }
 
   ngOnInit(): void {
+  }
+
+  LoggedOut () {
+    this.authService.loggedOut();
+    console.log("clicked")
+    
   }
 
 }

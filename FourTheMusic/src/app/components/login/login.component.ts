@@ -18,12 +18,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,  
     private router: Router,
-    private authService : AuthenticationService){}
+    private authService : AuthenticationService){
+    }
 
   ngOnInit(): void {
 
       this.loginForm = this.formBuilder.group({
-        username: '',
+        username: '', 
         password: '', 
       })
   }
@@ -38,9 +39,12 @@ export class LoginComponent implements OnInit {
     this.authService.userLogin(val).subscribe( 
       res => {
       console.log(res),
+      alert('Welcome back ' + val.username),
       (error: any) => console.log(error)
     })
     this.loginForm.reset();
     this.router.navigate(['./navbarBasic'])
   }
 }
+
+

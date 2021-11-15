@@ -6,11 +6,19 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
+
+          <a class="nav-link" aria-current="page" href="#">Home</a>
+          <a class="nav-link" [routerLink] ="['playlist']" routerLinkActive="active">My Playlist</a>
+          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link" >Disabled</a>
+
           <a class="nav-link active" aria-current="page" href="#">Home</a>
           <a class="nav-link" href="searchScreen">Search</a>
           <a class="nav-link" href="playlistManager">Playlist Manager</a>
           <a class="nav-link disabled">Premium Only</a>
+
         </div>
       </div>
+      <button (click) = "LoggedOut()" type="button" class="btn delete btn-danger">Sign Out</button>
     </div>
   </nav>

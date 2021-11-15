@@ -64,8 +64,6 @@
         name="username"
         class="form-control"
         placeholder="Username"
-        minlength="5"
-        maxlength="20"
         value=""
         required
         autofocus
@@ -78,8 +76,6 @@
         name="password"
         class="form-control"
         placeholder="Password"
-        minlength="5"
-        maxlength="20"
         value=""
         required
         autofocus
@@ -98,7 +94,7 @@
       />
 
       <div class="d-grid gap-2 mt-3">
-        <button class="btn btn-primary" type="submit">Sign Up</button>
+        <button [disabled] = "!registerForm.valid" class="btn btn-primary" type="submit">Sign Up</button>
       </div>
         <a href="">Already have an account? Sign In</a>
       </div>
