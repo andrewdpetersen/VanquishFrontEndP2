@@ -21,6 +21,7 @@ import { ConcertComponent } from './components/concert/concert.component';
 import { PlaylistManagerComponent } from './components/playlist-manager/playlist-manager.component';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuard } from './guards/auth.guard';
+import { PremiumDashboardComponent } from './modules/components/premiumUser/components/premium-dashboard/premium-dashboard.component';
 
 
 
@@ -34,18 +35,21 @@ const routes: Routes = [
       {path: 'trackSearch', component:TrackSearchComponent},
     ] 
 },
-  {path: 'premiumUser', canActivate: [AuthGuard],
-   component:PremiumNavBarComponent,
-  children: [
-    {path: 'playlistManager', component:PlaylistManagerComponent},
-    {path: 'trackSearch', component:TrackSearchComponent},
-    {path: 'concert', component:ConcertComponent},
-  ] 
+{path: 'premiumUser', 
+
+loadChildren: () => 
+import('./modules/premium-user/premium-user.module').then((m) => m.PremiumUserModule),
 },
+ 
 {path: '', redirectTo: '/login', pathMatch: 'full'}
-  // {path: '**', component: NavbarComponent},//not found page
-  // {path: '', redirectTo: '/login', pathMatch: 'full'},
+
 ]
+   
+// },
+// {path: '', redirectTo: '/login', pathMatch: 'full'}
+//   // {path: '**', component: NavbarComponent},//not found page
+//   // {path: '', redirectTo: '/login', pathMatch: 'full'},
+// ]
 
 @NgModule({
   declarations: [
@@ -60,7 +64,8 @@ const routes: Routes = [
     PremiumNavBarComponent,
     TrackSearchComponent,
     ConcertComponent,
-    PlaylistManagerComponent
+    PlaylistManagerComponent,
+    PremiumDashboardComponent
 
   ],
   imports: [
