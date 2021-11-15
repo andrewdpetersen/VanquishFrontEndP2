@@ -5,6 +5,8 @@ import { catchError, retry} from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 
+
+
  interface newUser {
     firstName: string,
     lastName: string,
@@ -26,7 +28,6 @@ import { Router } from '@angular/router';
 export class AuthenticationService {
 
 
-
 private apiUrl = 'http://localhost:8080/4TheMusic/';
 
 private httpOptions = {
@@ -37,6 +38,7 @@ private httpOptions = {
 
 
   constructor(private http: HttpClient, private router: Router) {
+  
 
   }
 
@@ -56,6 +58,7 @@ private httpOptions = {
     )
   }
 
+ 
 
 
 
