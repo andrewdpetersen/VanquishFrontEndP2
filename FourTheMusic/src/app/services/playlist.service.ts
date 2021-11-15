@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { Playlist, Track } from '../interfaces/playlist';
+import { PlaylistTrack } from '../interfaces/playlist-track';
 
 @Injectable({
   providedIn: 'root'
