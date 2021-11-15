@@ -42,7 +42,7 @@ private httpOptions = {
     localStorage.setItem('token '  , logUser.username)
     let userToken = localStorage.getItem('token ')
     console.log(userToken)
-    return this.http.post<logUser>(this.apiUrl + 'user/login', 
+    return this.http.post<logUser>(this.apiUrl + 'login', 
     JSON.stringify(logUser),
     this.httpOptions)
     .pipe(
