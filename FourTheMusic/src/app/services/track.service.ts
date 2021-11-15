@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Album } from '../interfaces/album';
 import { Track } from '../interfaces/track';
+import { Ratio } from '../ratio';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,12 @@ export class TrackService {
     }
     return this.http.post<Track>(this.dislikeUrl+'/'+userToken,JSON.stringify(track),this.httpOptions).pipe(
         retry(1),catchError(this.errorHandler));
+  }
+
+  ratioTrack(track_id:number):Observable<Ratio>
+  {
+    return this.http.get<Ratio>(this.baseurl+'/getRatio/'+track_id).pipe(
+      retry(1),catchError(this.errorHandler));
   }
 
   errorHandler(error: { error: { message: string; }; status: any; message: any; }) {

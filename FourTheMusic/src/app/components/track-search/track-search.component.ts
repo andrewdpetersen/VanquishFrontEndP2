@@ -32,6 +32,7 @@ export class TrackSearchComponent implements OnInit {
   userPlaylists: Playlist[]=[];
   form: FormGroup;
   selectValue:number=0;
+  ratio:String='';
 
   constructor(private service:TrackService,
     private service2:ArtistService,
@@ -115,6 +116,14 @@ export class TrackSearchComponent implements OnInit {
         {let {playlist_id, track_id} = data;
       
     }) 
+  }
+
+  ratioThis(track_id:number):void{
+    this.service.ratioTrack(track_id).subscribe(data=>{
+        let {ratio} = data;
+        console.log(ratio);
+        alert("This track's likes/dislikes: "+ratio)
+    });
   }
 
   ngOnInit(): void {
