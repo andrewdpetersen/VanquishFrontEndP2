@@ -1,14 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { Concert } from '../interfaces/concert';
+import { catchError, Observable, retry, throwError } from 'rxjs';
+import { PlaylistTrack } from '../interfaces/playlist-track';
+import { Track } from '../interfaces/track';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConcertService {
-  private baseurl = 'http://localhost:8080/4TheMusic/concert';
+export class PlaylistTrackService {
 
   constructor(private http:HttpClient) { }
 
@@ -17,23 +16,21 @@ export class ConcertService {
       'Content-Type': 'application/json;charset=utf-8'
     }),
   };
-  
-  GetConcert(concert_id:number):Observable<Concert>{
-    return this.http.get<Concert>(this.baseurl+'/'+concert_id).pipe(
+
+  RemoveFromPlaylist(playlist_id:number,track_id:number):Observable<PlaylistTrack>{
+    console.log("Reached");
+    console.log(playlist_id);
+    console.log(track_id);
+    return this.http.delete<PlaylistTrack>('http://localhost:8080/4TheMusic/remove/'+playlist_id+'/'+track_id).pipe(
       retry(1),catchError(this.errorHandler));
+    console.log("Reached2");  
   }
 
-  PostConcert(concert:Concert):Observable<Concert>{
+  AddTrackToPlaylist(playlist_id:number,track:Track):Observable<PlaylistTrack>{
     this.httpOptions.headers = this.httpOptions.headers.set(
       'Content-Type','application/json;charset=utf-8');
-    return this.http.post<Concert>(this.baseurl,JSON.stringify(concert),this.httpOptions).pipe(
-        retry(1),catchError(this.errorHandler));
-  }
-
-  DeleteConcert(concert_id:number):Observable<Concert>{
-    this.httpOptions.headers = this.httpOptions.headers.set(
-      'Content-Type','application/json;charset=utf-8');
-    return this.http.delete<Concert>(this.baseurl+'/'+concert_id);
+    return this.http.post<PlaylistTrack>('http://localhost:8080/4TheMusic/add/'+playlist_id,JSON.stringify(track),this.httpOptions).pipe(
+      retry(1),catchError(this.errorHandler));
   }
 
   errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
@@ -48,5 +45,4 @@ export class ConcertService {
     console.log(errorMessage);
     return throwError(errorMessage);
   }
-  
 }

@@ -1,0 +1,40 @@
+<div>
+    Enter the name of your playlist:
+    <input type="text" [(ngModel)]='playlistName'>
+    <br>
+    <button (click)='createPlaylist(playlistName)'>Create Playlist</button>
+</div>
+<br>
+<div *ngFor="let playlist of newPlaylist">
+    <h6>{{playlist.playlist_id}}</h6>
+    <h4>{{playlist.playlistName}}</h4>
+</div>
+
+<div>
+    Enter playlist ID to view tracks:
+    <input type="number" [(ngModel)]='playlist_id'>
+    <br>
+    <button (click)='viewPlaylist(playlist_id)'>View Playlist</button>
+</div>
+
+<div>
+    <div *ngFor="let track of tracklist" class="trackList">
+        <div class="track">
+            <div class="column1">
+                <p><img src={{track.artist.image_url}} height="100" width="100"/> </p>
+                </div>
+            <div class="column2">
+            <h3>{{track.title}}
+                <fa-icon (click)="likeThis(track)" [ngStyle]="{'color': 'green'}" [icon]="faThumbsUp"></fa-icon>
+                &nbsp;<fa-icon (click)="dislikeThis(track)" [ngStyle]="{'color': 'red'}" [icon]="faThumbsDown"></fa-icon></h3>
+            <p>{{track.artist.name}}
+                <br>
+                {{track.album.album_title}}<br>
+            </p>
+            </div>
+            <div class="column3">
+                <button (click)='removeFromList(playlist_id,track.track_id)'>Remove Track from this Playlist</button>
+            </div>
+        </div>
+    </div>
+</div>

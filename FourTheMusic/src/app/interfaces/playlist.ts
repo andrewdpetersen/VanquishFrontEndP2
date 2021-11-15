@@ -1,3 +1,9 @@
+export interface Playlist {
+    playlist_id:number,
+    playlistName:String,
+    tracklist:Array<Track>
+}
+
 export interface Track {
     track_id:number,
     title:String,
