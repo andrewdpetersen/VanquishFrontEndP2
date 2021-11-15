@@ -1,35 +1,43 @@
 input#password {
-    position: relative;
-    top:2px;
-  }
+  position: relative;
+  top:2px;
+}
 
-  input#password,
-  #username {
-    padding: 10px;
-  }
+input#password,
+#username {
+  padding: 10px;
+}
 
-  div.text-center.mt-5 {
-    position: relative;
-    top: 60px;
-  }
+div.text-center.mt-5 {
+  position: relative;
+  top: 60px;
+}
 
-  button.btn.btn-primary {
-    padding: 10px 50px;
-  
-  }
+button.btn.btn-primary {
+  padding: 10px 50px;
 
-  a {
-    position: relative;
-    top: 10px;
-  }
+}
 
-  div.container{
-    position: relative;
-    top:20px;
-  }
+a {
+  position: relative;
+  top: 10px;
+}
+
+div.container{
+  position: relative;
+  top:20px;
+}
 
 
 form#form.form-control{
-  position: relative;
-  height: 20rem;
+position: relative;
+height: 20rem;
+}
+
+.title{
+position: relative;
+display: flex;
+justify-content: center;
+top:50px;
+color: #0D6EFD;
 }

@@ -56,7 +56,7 @@ const val = this.registerForm.getRawValue();
        alert("Ready to search for your favorite artist " + val.firstName  + " and create your own playlist!"),
       //   console.log(Object.values(res)),
       // (error: any) => console.log(error)
-      this.router.navigate(['/navbarBasic'])
+      this.router.navigate(['/navbar'])
     })
     this.registerForm.reset();   
   }
