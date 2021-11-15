@@ -31,7 +31,8 @@ export class PlaylistService {
   PostPlaylist(playlist:Playlist):Observable<Playlist>{
     this.httpOptions.headers = this.httpOptions.headers.set(
       'Content-Type','application/json;charset=utf-8');
-      return this.http.post<Playlist>(this.baseurl,JSON.stringify(playlist),this.httpOptions).pipe(
+    const userToken = localStorage.getItem('token ');
+      return this.http.post<Playlist>(this.baseurl+'/'+userToken,JSON.stringify(playlist),this.httpOptions).pipe(
         retry(1),catchError(this.errorHandler));
   }
 
