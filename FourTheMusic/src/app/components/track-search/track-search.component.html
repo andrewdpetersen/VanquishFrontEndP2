@@ -32,13 +32,13 @@
             </div>
             <div class="column3">
                 <form [formGroup]="form">
-                <select formControlName="userPlaylists" id="userPlaylists">
+                <select formControlName="userPlaylists" id="userPlaylists" [(ngModel)]="selectValue">
                     <option *ngFor='let playlist of userPlaylists; let i=index' [value]='userPlaylists[i].playlist_id'>
                         {{userPlaylists[i].playlistName}}
                     </option>
                     
                 </select>
-                <button (click)='addToPlaylist(13,track)'>Add to Playlist</button>
+                <button (click)='addToPlaylist(selectValue,track)'>Add to Playlist</button>
             </form>
             </div>
         </div>

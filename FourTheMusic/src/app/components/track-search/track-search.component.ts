@@ -31,6 +31,7 @@ export class TrackSearchComponent implements OnInit {
   faThumbsDown=faThumbsDown;
   userPlaylists: Playlist[]=[];
   form: FormGroup;
+  selectValue:number=0;
 
   constructor(private service:TrackService,
     private service2:ArtistService,
