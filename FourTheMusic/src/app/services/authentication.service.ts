@@ -44,11 +44,17 @@ private httpOptions = {
 
   //user login
   userLogin(logUser : logUser): Observable<logUser> {
-
-    localStorage.setItem('token '  , logUser.username)
-    localStorage.setItem('User ', logUser.password && logUser.username)
-    let userToken = localStorage.getItem('token ')
+    if(logUser.username === "Admin" && logUser.password === "Password5!"){
+      alert("You area premium user")
+    } else {
+      alert("You are not a premium user")
+    }
+    localStorage.setItem('token'  , logUser.username)
+    // localStorage.setItem('User', logUser.password && logUser.username)
+    let userToken = localStorage.getItem('token',)
     console.log(userToken)
+
+ 
     return this.http.post<logUser>(this.apiUrl + 'login', 
     JSON.stringify(logUser),
     this.httpOptions)
@@ -56,6 +62,16 @@ private httpOptions = {
       retry(1),
       catchError(this.handleError)
     )
+  }
+
+  getToken(): string | null {
+    console.log(this.getToken())
+    return localStorage.getItem('token')
+
+  }
+ 
+  isLoggedIn() {
+    return this.getToken() !== null;
   }
 
  

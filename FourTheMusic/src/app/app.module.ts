@@ -20,22 +20,33 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConcertComponent } from './components/concert/concert.component';
 import { PlaylistManagerComponent } from './components/playlist-manager/playlist-manager.component';
 import { AuthenticationService } from './services/authentication.service';
+import { AuthGuard } from './guards/auth.guard';
 
 
 
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'navbarBasic', component: NavbarComponent},
-  {path: 'navbarPremium', component: PremiumNavBarComponent},
-  {path: 'test', component: TestCompComponent},
-  {path: 'concertScreen', component: ConcertComponent},
-  {path: 'searchScreen', component: TrackSearchComponent},
-  {path: 'playlistManager', component: PlaylistManagerComponent}
-
-  
+  {path: 'navbar', component: NavbarComponent,
+    children: [
+      {path: 'playlistManager', component:PlaylistManagerComponent},
+      {path: 'trackSearch', component:TrackSearchComponent},
+    ] 
+},
+  {path: 'premiumUser', canActivate: [AuthGuard],
+   component:PremiumNavBarComponent,
+  children: [
+    {path: 'playlistManager', component:PlaylistManagerComponent},
+    {path: 'trackSearch', component:TrackSearchComponent},
+    {path: 'concert', component:ConcertComponent},
+  ] 
+},
+{path: '', redirectTo: '/login', pathMatch: 'full'}
+  // {path: '**', component: NavbarComponent},//not found page
+  // {path: '', redirectTo: '/login', pathMatch: 'full'},
 ]
+
 @NgModule({
   declarations: [
     AppComponent,
