@@ -60,14 +60,15 @@ export class TrackSearchComponent implements OnInit {
   }
 
   likeThis(track:Track):void{
-    this.service4.likeTrack(track).subscribe(data=>{
+    this.service.likeTrack(track).subscribe(data=>{
         let {track_id, title, artist, album} = data;
         this.ratedTrack.push({track_id, title, artist, album});
         console.log(this.ratedTrack);
     });
   }
+
   dislikeThis(track:Track):void{
-    this.service4.dislikeTrack(track).subscribe(data=>{
+    this.service.dislikeTrack(track).subscribe(data=>{
       let {track_id, title, artist, album} = data;
       this.ratedTrack.push({track_id, title, artist, album});
       console.log(this.ratedTrack);

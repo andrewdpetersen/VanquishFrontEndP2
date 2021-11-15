@@ -17,7 +17,6 @@ import { TestCompComponent } from './components/test-comp/test-comp.component';
 import { ConcertService } from './services/concert.service';
 import { LocationService } from './services/location.service';
 import { GenreServiceService } from './services/genre-service.service';
-import { AuthenticationService } from './services/authentication.service';
 import { TrackSearchComponent } from './components/track-search/track-search.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConcertComponent } from './components/concert/concert.component';
@@ -39,7 +38,7 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
 
-    PremiumNavBarComponent
+    PremiumNavBarComponent,
 
     TestCompComponent,
     TrackSearchComponent,
@@ -59,7 +58,6 @@ const routes: Routes = [
 
 
   //the token HTTP_INTERCEPTORS to use the classes (useClass) AuthInterceptor. In order to get this working, we need to specify multi: true so Angular knows that multiple values (or classes) are going to be used.
-  providers: [AuthenticationService,],
 
   providers: [GenreServiceService,
     ConcertService,
