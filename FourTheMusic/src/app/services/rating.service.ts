@@ -1,19 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { Album } from '../interfaces/album';
+import { catchError, Observable, retry, throwError } from 'rxjs';
 import { Track } from '../interfaces/track';
-import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TrackService {
-  private baseurl = 'http://localhost:8080/4TheMusic/track';
-  private searchUrl = 'http://localhost:8080/4TheMusic/track/search';
-
-
+export class RatingService {
+  private baseUrl = 'http://localhost:8080/4TheMusic'; 
 
   constructor(private http:HttpClient) { }
 
@@ -23,18 +17,17 @@ export class TrackService {
     }),
   };
 
-  GetTrack(track_id:number):Observable<Track>{
-    return this.http.get<Track>(this.baseurl+'/'+track_id).pipe(
+  likeTrack(track:Track):Observable<Track>{
+    this.httpOptions.headers = this.httpOptions.headers.set(
+      'Content-Type','application/json;charset=utf-8');
+    return this.http.post<Track>(this.baseUrl+'/like',JSON.stringify(track),this.httpOptions).pipe(
       retry(1),catchError(this.errorHandler));
   }
 
-  SearchTracks(title:String):Observable<Track[]>{
-    return this.http.get<Track[]>(this.searchUrl+'/'+title).pipe(
-      retry(1),catchError(this.errorHandler));
-  }
-
-  viewTracks(album:Album):Observable<Track[]>{
-    return this.http.get<Track[]>(this.baseurl+'/byAlbum/'+album.id).pipe(
+  dislikeTrack(track:Track):Observable<Track>{
+    this.httpOptions.headers = this.httpOptions.headers.set(
+      'Content-Type','application/json;charset=utf-8');
+    return this.http.post<Track>(this.baseUrl+'/dislike',JSON.stringify(track),this.httpOptions).pipe(
       retry(1),catchError(this.errorHandler));
   }
 
