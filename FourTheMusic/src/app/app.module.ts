@@ -20,6 +20,7 @@ import { TrackSearchComponent } from './components/track-search/track-search.com
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConcertComponent } from './components/concert/concert.component';
 import { PlaylistManagerComponent } from './components/playlist-manager/playlist-manager.component';
+import { AuthenticationService } from './services/authentication.service';
 
 
 

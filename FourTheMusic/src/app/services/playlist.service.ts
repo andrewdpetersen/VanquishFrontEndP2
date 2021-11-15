@@ -35,6 +35,12 @@ export class PlaylistService {
         retry(1),catchError(this.errorHandler));
   }
 
+  GetPlaylistsByUser():Observable<Playlist[]>{
+    const userToken = localStorage.getItem('token ');
+    return this.http.get<Playlist[]>(this.baseurl+'/user/'+userToken).pipe(
+      retry(1),catchError(this.errorHandler));
+  }
+
   errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
     let errorMessage = '';
     if(error.error instanceof ErrorEvent) {

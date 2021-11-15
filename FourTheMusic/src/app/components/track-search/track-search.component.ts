@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Artist } from 'src/app/interfaces/artist';
 import { Track } from 'src/app/interfaces/track';
 import { Album } from 'src/app/interfaces/album';
+import { Playlist } from 'src/app/interfaces/playlist';
 import { AlbumService } from 'src/app/services/album.service';
 import { ArtistService } from 'src/app/services/artist.service';
 import { TrackService } from 'src/app/services/track.service';
 import { RatingService } from 'src/app/services/rating.service';
 import {faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 import {faThumbsDown} from '@fortawesome/free-solid-svg-icons';
+import { PlaylistTrackService } from 'src/app/services/playlist-track.service';
+import { PlaylistService } from 'src/app/services/playlist.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-track-search',
@@ -24,11 +29,20 @@ export class TrackSearchComponent implements OnInit {
   albumTracks:Track[]=[];
   faThumbsUp=faThumbsUp;
   faThumbsDown=faThumbsDown;
+  userPlaylists: Playlist[]=[];
+  form: FormGroup;
 
   constructor(private service:TrackService,
     private service2:ArtistService,
     private service3:AlbumService,
-    private service4:RatingService) { }
+    private service4:PlaylistTrackService,
+    private service5:PlaylistService,
+    private formBuilder:FormBuilder) {
+      this.form=this.formBuilder.group({userPlaylists:[]});
+      of(this.showPlaylists()).subscribe(userPlaylists=>{
+        this.userPlaylists = userPlaylists;
+      })
+     }
 
   listSearch(search:String,searchType:String):void{
     if(searchType=='track'){
@@ -84,6 +98,24 @@ export class TrackSearchComponent implements OnInit {
       }
     });
   }
+
+  showPlaylists():Playlist[]{
+    this.service5.GetPlaylistsByUser().subscribe(data=>{
+      for(const playlist of data){
+        let {playlist_id,playlistName,tracklist} = playlist;
+        this.userPlaylists.push({playlist_id,playlistName,tracklist})
+      }
+    });
+    return this.userPlaylists;
+  }
+
+  addToPlaylist(playlist_id:number,track:Track):void{
+    this.service4.AddTrackToPlaylist(playlist_id,track).subscribe(data=>
+        {let {playlist_id, track_id} = data;
+      
+    }) 
+  }
+
   ngOnInit(): void {
   }
 
