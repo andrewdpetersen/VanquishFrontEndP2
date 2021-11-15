@@ -6,8 +6,8 @@ import { AlbumService } from 'src/app/services/album.service';
 import { ArtistService } from 'src/app/services/artist.service';
 import { TrackService } from 'src/app/services/track.service';
 import { RatingService } from 'src/app/services/rating.service';
-// import {faThumbsUp} from '@fortawesome/free-solid-svg-icons';
-// import {faThumbsDown} from '@fortawesome/free-solid-svg-icons';
+import {faThumbsUp} from '@fortawesome/free-solid-svg-icons';
+import {faThumbsDown} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-track-search',
@@ -22,8 +22,8 @@ export class TrackSearchComponent implements OnInit {
   albumListResults: Album[]=[];
   ratedTrack:Track[]=[];
   albumTracks:Track[]=[];
-  // faThumbsUp=faThumbsUp;
-  // faThumbsDown=faThumbsDown;
+  faThumbsUp=faThumbsUp;
+  faThumbsDown=faThumbsDown;
 
   constructor(private service:TrackService,
     private service2:ArtistService,
