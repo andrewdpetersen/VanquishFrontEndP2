@@ -43,32 +43,40 @@ private httpOptions = {
   }
 
   //user login
-  userLogin(logUser : logUser): Observable<logUser> {
-    if(logUser.username === "Admin" && logUser.password === "Password5!"){
-      alert("You area premium user")
-    } else {
-      alert("You are not a premium user")
-    }
-    localStorage.setItem('token'  , logUser.username)
-    // localStorage.setItem('User', logUser.password && logUser.username)
-    let userToken = localStorage.getItem('token',)
-    console.log(userToken)
+  /**
+   * @author Erika Johnson
+   * @param newUser
+   *  @param logUser
+   * @returns
+   *  Once a user registers/signs in, they are given a token,
+   * [Normally we would use a JWT token but in this instance we are utilizing the users username]
+   * which will track their requests through-out
+   * the application, until they sign out
+   */
 
- 
-    return this.http.post<logUser>(this.apiUrl + 'login', 
-    JSON.stringify(logUser),
-    this.httpOptions)
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
+   userLogin(logUser: logUser): Observable<logUser> {
+    localStorage.setItem('token', logUser.username);
+    let userToken = localStorage.getItem('token');
+    console.log(userToken);
+    return this.http
+      .post<logUser>(
+        this.apiUrl + 'login',
+        JSON.stringify(logUser),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
   }
 
-  getToken(): string | null {
-    console.log(this.getToken())
-    return localStorage.getItem('token')
+/**
+   * @author Erika Johnson
+   * @returns
+   * getToken and isLoggedIn functions are used in the auth.guard.ts file
+   * to verify that the premium user is logged in and has a token upon logging in
+   */
 
-  }
+ getToken(): string | null {
+  return localStorage.getItem('token');
+}
  
   isLoggedIn() {
     return this.getToken() !== null;
@@ -90,36 +98,37 @@ private httpOptions = {
 
 
   //register function
-  userRegister(newUser: newUser): Observable<newUser> {
-  console.log(newUser),
-   console.log(newUser.firstName)
-   console.log(this.httpOptions)
-  
-   localStorage.setItem('token '  , newUser.username)
-   localStorage.setItem('firstName', newUser.firstName)
-    let userToken = localStorage.getItem('token ')
-  
-   console.log(userToken);
-
-    return this.http.post<newUser>(this.apiUrl + 'user/register/basic',
-    JSON.stringify(newUser),
-    this.httpOptions)
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-      
-    )
-    
+  /**
+ * User Registration
+ */
+   userRegister(newUser: newUser): Observable<newUser> {
+    console.log(newUser), console.log(newUser.firstName);
+    console.log(this.httpOptions);
+    localStorage.setItem('token ', newUser.username);
+    localStorage.setItem('firstName', newUser.firstName);
+    let userToken = localStorage.getItem('token ');
+    console.log(userToken);
+    return this.http
+      .post<newUser>(
+        this.apiUrl + 'user/register/basic',
+        JSON.stringify(newUser),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
   }
-   
+
   handleError(error: HttpErrorResponse) {
-    console.log(error)
-    return throwError(() => error)
+    console.log(error);
+    return throwError(() => error);
   }
 
+  /**
+   * @author Erika Johnson
+   * Logout Function clears the token from the
+   * LocalStorage, so user data isn't being stored
+   * within the application, once they leave
+   */
 
-
-  //logout function
   loggedOut() {
     localStorage.clear()
     alert("Leaving so soon")

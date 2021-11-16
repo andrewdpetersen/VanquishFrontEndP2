@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "aws s3 sync dist/FourTheMusic s3://p2-client-host"
   },
   "private": true,
   "dependencies": {
