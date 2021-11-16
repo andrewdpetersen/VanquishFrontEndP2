@@ -1,4 +1,3 @@
-<p>track-search works!</p>
 <div>
     <input type="text" [(ngModel)]='search'>
     <br><br>
@@ -24,7 +23,7 @@
             <div class="column2">
             <h3>{{track.title}}
                 <fa-icon (click)="likeThis(track)" [ngStyle]="{'color': 'green'}" [icon]="faThumbsUp"></fa-icon>
-                &nbsp;<fa-icon (click)="dislikeThis(track)" [ngStyle]="{'color': 'red'}" [icon]="faThumbsDown"></fa-icon></h3>
+                &nbsp;<fa-icon (click)="dislikeThis(track)" [ngStyle]="{'color': 'red'}" [icon]="faThumbsDown"></fa-icon><button (click)="ratioThis(track.ID)">See Ratio</button><p>{{ratio}}</p></h3>
             <p>{{track.artist.name}}
                 <br>
                 {{track.album.album_title}}<br>

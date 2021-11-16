@@ -37,6 +37,23 @@ export class TrackService {
       retry(1),catchError(this.errorHandler));
   }
 
+  /**
+   * @author Michael Reece
+   * @returns
+   * sends a get request to our back end with the track id of a specific track and returns an observable object with a string that contains the ratio as a string
+   */
+  ratioTrack(track_id:number):Observable<string>
+  {
+    return this.http.get<string>(this.baseurl+'/getRatio/'+track_id).pipe(
+      retry(1),catchError(this.errorHandler));
+  }
+
+  /**
+   * @author Michael Reece
+   * @returns
+   * sends a post request with the user token (if the token isn't null) in the header and a track as a parameter
+   * adds the track to the logged in user's likes list, and the user to the track's "users who like this track" list
+   */
   likeTrack(track:Track):Observable<Track>{
     console.log(track);
     const userToken = localStorage.getItem('token ');
@@ -50,6 +67,12 @@ export class TrackService {
         retry(1),catchError(this.errorHandler));
   }
 
+  /**
+   * @author Michael Reece
+   * @returns
+   * sends a post request with the user token (if the token isn't null) in the header and a track as a parameter
+   * adds the track to the logged in user's dislikes list, and the user to the track's "users who dislike this track" list
+   */
   dislikeTrack(track:Track):Observable<Track>{
     const userToken = localStorage.getItem('token ');
     console.log("userToken is set to" + userToken);

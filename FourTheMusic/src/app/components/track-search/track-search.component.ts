@@ -22,6 +22,7 @@ export class TrackSearchComponent implements OnInit {
   albumListResults: Album[]=[];
   ratedTrack:Track[]=[];
   albumTracks:Track[]=[];
+  ratio:String='';
   faThumbsUp=faThumbsUp;
   faThumbsDown=faThumbsDown;
 
@@ -59,6 +60,24 @@ export class TrackSearchComponent implements OnInit {
 }
   }
 
+  /**
+   * @author Michael Reece
+   * @returns
+   * calls to the function ratioTrack and subscribes to the observable that's returned from the Get method and sets ratio = to the result for displaying
+   */
+  ratioThis(track_id:number):void{
+    this.service.ratioTrack(track_id).subscribe(data=>{
+        let ratio = data;
+        console.log(ratio);
+    });
+  }
+
+  /**
+   * @author Michael Reece
+   * @returns
+   * calls to the function likeTrack and subscribes to the observable that's returned from the post method and sets ratedTrack = to the result
+   * sends in track to be liked
+   */
   likeThis(track:Track):void{
     this.service.likeTrack(track).subscribe(data=>{
         let {track_id, title, artist, album} = data;
@@ -67,6 +86,12 @@ export class TrackSearchComponent implements OnInit {
     });
   }
 
+  /**
+   * @author Michael Reece
+   * @returns
+   * calls to the function dislikeTrack and subscribes to the observable that's returned from the post method and sets ratedTrack = to the result
+   * sends in track to be disliked
+   */
   dislikeThis(track:Track):void{
     this.service.dislikeTrack(track).subscribe(data=>{
       let {track_id, title, artist, album} = data;
