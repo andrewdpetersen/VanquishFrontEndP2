@@ -5,6 +5,11 @@ import { catchError, retry } from 'rxjs/operators';
 import { Album } from '../interfaces/album';
 import { Track } from '../interfaces/track';
 
+import { AuthenticationService } from './authentication.service';
+
+import { Ratio } from '../ratio';
+
+
 @Injectable({
   providedIn: 'root'
 })

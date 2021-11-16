@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, retry} from 'rxjs/operators';
+import { Router } from '@angular/router';
+
+
 
 
  interface newUser {
@@ -14,7 +17,7 @@ import { catchError, retry} from 'rxjs/operators';
     email: string
 }
 
-interface logUser {
+ export interface logUser {
   username: string,
   password: string
 }
@@ -31,17 +34,27 @@ private httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json',
   'Authorization': 'token'})
 };
+  
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
+  
+
   }
 
   //user login
   userLogin(logUser : logUser): Observable<logUser> {
-
-    localStorage.setItem('token '  , logUser.username)
-    let userToken = localStorage.getItem('token ')
+    if(logUser.username === "Admin" && logUser.password === "Password5!"){
+      alert("You area premium user")
+    } else {
+      alert("You are not a premium user")
+    }
+    localStorage.setItem('token'  , logUser.username)
+    // localStorage.setItem('User', logUser.password && logUser.username)
+    let userToken = localStorage.getItem('token',)
     console.log(userToken)
+
+ 
     return this.http.post<logUser>(this.apiUrl + 'login', 
     JSON.stringify(logUser),
     this.httpOptions)
@@ -50,6 +63,19 @@ private httpOptions = {
       catchError(this.handleError)
     )
   }
+
+  getToken(): string | null {
+    console.log(this.getToken())
+    return localStorage.getItem('token')
+
+  }
+ 
+  isLoggedIn() {
+    return this.getToken() !== null;
+  }
+
+ 
+
 
 
 /**
@@ -70,15 +96,20 @@ private httpOptions = {
    console.log(this.httpOptions)
   
    localStorage.setItem('token '  , newUser.username)
+   localStorage.setItem('firstName', newUser.firstName)
     let userToken = localStorage.getItem('token ')
+  
    console.log(userToken);
+
     return this.http.post<newUser>(this.apiUrl + 'user/register/basic',
     JSON.stringify(newUser),
     this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
+      
     )
+    
   }
    
   handleError(error: HttpErrorResponse) {
@@ -91,7 +122,8 @@ private httpOptions = {
   //logout function
   loggedOut() {
     localStorage.clear()
-    alert("You are logged out")
+    alert("Leaving so soon")
+    this.router.navigate(['/'])
   }
 
 }

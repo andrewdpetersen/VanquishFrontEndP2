@@ -43,10 +43,52 @@ body {
     float: left;
     width: 70%;
   }
+
+  .column3{
+    float: left;
+    width: 20%;  
+  }
   
   /* Clear floats after the columns */
   .track:after {
     content: "";
     display: table;
     clear: both;
+  }
+
+  .columnA {
+    float: left;
+    width: 30%;
+  }
+  
+  .columnB{
+    float: left;
+    width: 90%;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .track{
+    background: #f4f4f4;
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .container {
+    max-width: 500px;
+    margin: 30px auto;
+    overflow: auto;
+    min-height: 300px;
+    border: 1px solid steelblue;
+    padding: 30px;
+    border-radius: 5px;
   }

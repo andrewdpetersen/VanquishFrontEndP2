@@ -15,6 +15,7 @@ import { TrackService } from 'src/app/services/track.service';
 export class PlaylistManagerComponent implements OnInit {
   playlistName:String='';
   playlist_id:number=0;
+  newPlaylist_id:number=0;
   tracklist:Track[]=[];
   newPlaylist:Playlist[]=[];
   resultPlaylist:Playlist[]=[];
@@ -27,9 +28,9 @@ export class PlaylistManagerComponent implements OnInit {
               private service2:PlaylistTrackService,
               private service4:RatingService) { }
 
-  createPlaylist(name:String):void{
+  createPlaylist(playlistName:String):void{
     this.service.PostPlaylist({
-      playlist_id:this.playlist_id,
+      playlist_id:this.newPlaylist_id,
       playlistName:this.playlistName,
       tracklist:this.tracklist
   }).subscribe(list=>{
@@ -37,6 +38,9 @@ export class PlaylistManagerComponent implements OnInit {
       this.newPlaylist.push({playlist_id,playlistName,tracklist})
       console.log(list);
   })
+    this.playlistName='';
+    this.newPlaylist_id=0;
+    this.tracklist=[];
 }
 
   viewPlaylist(playlist_id:number):void{
@@ -46,7 +50,9 @@ export class PlaylistManagerComponent implements OnInit {
         this.tracklist.push({track_id, title, artist, album})
         console.log(this.tracklist);
       }
-  });}
+  });
+    
+}
 
   likeThis(track:Track):void{
     this.service4.likeTrack(track).subscribe(data=>{

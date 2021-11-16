@@ -29,23 +29,47 @@
                 {{track.album.album_title}}<br>
             </p>
             </div>
+            <div class="column3">
+                <form [formGroup]="form">
+                <select formControlName="userPlaylists" id="userPlaylists" [(ngModel)]="selectValue">
+                    <option *ngFor='let playlist of userPlaylists; let i=index' [value]='userPlaylists[i].playlist_id'>
+                        {{userPlaylists[i].playlistName}}
+                    </option>
+                    
+                </select>
+                <button (click)='addToPlaylist(selectValue,track)'>Add to Playlist</button>
+                <button (click)='ratioThis(track.track_id)'>View Like/Dislike Ratio</button>
+            </form>
+            </div>
         </div>
     </div>
 
     <div *ngFor="let artist of artistListResults" class="artistList">
-        <h6>Artist ID: {{artist.ID}}</h6>
-        <h4>Name: {{artist.name}}</h4>
-        <h6>Image: {{artist.image_url}}</h6>
-        <br>
+        <div class="track">
+        <div class="columnA">
+            <p><img src={{artist.image_url}} height="100" width="100"/></p>
+        </div>
+        <div class="columnB">
+            <h3>Name: {{artist.name}}</h3>
+        </div>
+        <br><br><br>
+        </div>
     </div>
 
     <div *ngFor="let album of albumListResults" class="albumList">
+        <div class=track>
+        <div class="columnA">
+            <p><img src={{artist.image_url}} height="100" width="100"/></p>
+        </div>
+        <div class="columnB">
         <h6>Album ID: {{album.id}}</h6>
         <h4>Title: {{album.album_title}}</h4>
         <h6>Release Date: {{album.date}}</h6>
-        <h6>Genre: {{album.genre.genre_name}}</h6>    
+        <h6>Artist: {{album.artist.name}}</h6>    
         <br>
         <button (click)="viewTracks(album)" value="VIEW">VIEW TRACKS</button>
+        </div>
+    </div>
     </div>
 
     <div *ngFor="let track of albumTracks" class="albumTracks">
