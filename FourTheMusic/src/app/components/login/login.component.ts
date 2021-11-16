@@ -32,17 +32,32 @@ export class LoginComponent implements OnInit {
   //if username and password match navigate to 
   //designated screens, one for basic user and 
   //one for premium
+
+    /**
+   * @author Erika Johnson
+   * userLogin calls the authService's userLogin function to
+   * validate that username and password match. Users are
+   * redirected to the designated view.
+   */
    
- userLogin() {
-   const val = this.loginForm.getRawValue();
-   console.log(val)
-    this.authService.userLogin(val).subscribe( 
-      res => {
-      console.log(res),
-      alert('Welcome back ' + val.username),
-      (error: any) => console.log(error)
-    })
-    this.loginForm.reset();
-    this.router.navigate(['./navbarBasic'])
+     userLogin() {
+      const val = this.loginForm.getRawValue();
+      console.log(val);
+      this.authService.userLogin(val).subscribe((res) => {
+        console.log(res), (error: any) => console.log(error);
+        if (val.username === 'petean05' && val.password === 'secretPass33!') {
+          alert('You are a premium user ' + val.username);
+          this.router.navigate(['premiumUser']);
+        } else if (val.username != 'Admin' && val.password != 'Password5!') {
+          alert('Welcome back ' + val.username);
+          this.router.navigate(['navbar']);
+        } else {
+          alert(
+            'You are not a premium user, but hopefully you will be in the future'
+          );
+          this.router.navigate(['login']);
+        }
+      }),
+        this.loginForm.reset();
+    }
   }
-}

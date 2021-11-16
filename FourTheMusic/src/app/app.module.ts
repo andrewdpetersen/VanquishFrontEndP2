@@ -36,9 +36,9 @@ const routes: Routes = [
     ] 
 },
 {path: 'premiumUser', 
-
+canActivate: [AuthGuard],
 loadChildren: () => 
-import('./modules/premium-user/premium-user.module').then((m) => m.PremiumUserModule),
+import('../app/modules/premium-user/premium-user.module').then((m) => m.PremiumUserModule),
 },
  
 {path: '', redirectTo: '/login', pathMatch: 'full'}
