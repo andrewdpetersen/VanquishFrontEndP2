@@ -9,7 +9,7 @@
   
   .column2{
     float: left;
-    width: 70%;
+    width: 50%;
   }
 
   .column3{
@@ -26,12 +26,12 @@
 
   .columnA {
     float: left;
-    width: 30%;
+    width: 40%;
   }
   
   .columnB{
     float: left;
-    width: 90%;
+    width: 60%;
   }
 
   * {
