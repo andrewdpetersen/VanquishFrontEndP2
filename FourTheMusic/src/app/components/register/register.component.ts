@@ -1,7 +1,11 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -10,43 +14,62 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class RegisterComponent implements OnInit {
   
 
+  Success: boolean = false
+  SignupFailed: boolean = false
+  errorMessage: string = ''
+
   registerForm: FormGroup | any;
-  // registerForm: FormGroup = this.formBuilder.group({
-  //       firstname: '',
-  //       lastname: '',
-  //       city: '',
-  //       state: '',
-  //       username: '',
-  //       password: '', 
-  //       email: ''
 
-  // })
+  constructor(private formBuilder: FormBuilder, 
+    private authService: AuthenticationService, 
+    private router: Router) {  
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthenticationService) { }
+
+    }
+
 
   ngOnInit(): void {
 
     this.registerForm = this.formBuilder.group({
-      firstname: '',
-      lastname: '',
-      city: '',
-      state: '',
+      firstName: '', 
+      lastName: '', 
+      city: '', 
+      state: '', 
       username: '',
       password: '', 
-      email: ''
+      email: '', 
     })
+
   }
 
+  
+
   userRegister() {
-    
 const val = this.registerForm.getRawValue();
     console.log(val)
-    this.authService.userRegister(this.registerForm).subscribe( 
-      res => {
-      console.log(res),
-      localStorage.setItem('token', res.token),
-      (error: any) => console.log(error)
+    this.authService.userRegister(val).subscribe( 
+      res => { 
+        this.Success = true;
+        this.SignupFailed = false;
+       console.log(res),
+       console.log((val));
+       alert("Ready to search for your favorite artist " + val.firstName  + " and create your own playlist!"),
+      //   console.log(Object.values(res)),
+      // (error: any) => console.log(error)
+      this.router.navigate(['/navbar'])
     })
-    this.registerForm.reset();
+    this.registerForm.reset();   
   }
+
+
+ 
+
 }
+
+//if user registers (basic) navigate to home screen
+//username and password must meet validation requirements
+//Username must be atleast 5 - 20 characters,
+//(atleast 1 uppercase, 1 number)
+//password must be between 5 -20 characters
+//email must have @ symbol
+//boolean?

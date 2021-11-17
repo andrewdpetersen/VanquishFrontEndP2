@@ -1,0 +1,36 @@
+<div class="searchbar">
+    Enter Concert Name:
+    <input type="text" [(ngModel)]='name' id="concertName">
+    <br>
+    Enter Concert Date:
+    <input type="text" [(ngModel)]='date' id="concertDate">
+    <br>
+    What city will the concert be in:
+    <input type="text" [(ngModel)]='city' id="concertCity">
+    <br>
+    What state will the concert be in:
+    <input type="text" [(ngModel)]='state' id="concertState">
+    <br>
+    <button (click)='scheduleConcert(name,date,city,state)' id="concertButton">Schedule Concert</button>
+</div>
+<br><br>
+<div *ngFor="let concert of newConcert" class="newConcert">
+    <h6>Concert ID: {{concert.concert_id}}</h6>
+    <h4>Name: {{concert.name}}</h4>
+    <h6>Concert Date: {{concert.date}}</h6>
+    <h6>City: {{concert.location.city}}</h6>
+    <h6>State: {{concert.location.state}}</h6>
+</div>
+<div class="searchbar">
+    Enter ID of Concert to Cancel:
+    <input type="number" [(ngModel)]='concert_id'>
+    <br>
+    <button (click)='cancelConcert(concert_id)' id="otherConButton">Cancel Concert</button>
+</div>
+<!-- <div *ngFor="let concert of cancelledConcert" class="cancelledConcert">
+    <h6>Concert ID: {{concert.concert_id}}</h6>
+    <h4>Name: {{concert.name}}</h4>
+    <h6>Concert Date: {{concert.date}}</h6>
+    <h6>City: {{concert.location.city}}</h6>
+    <h6>State: {{concert.location.state}}</h6>
+</div> -->

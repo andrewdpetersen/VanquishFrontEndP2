@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, retry} from 'rxjs/operators';
+import { Router } from '@angular/router';
+
+
+
 
  interface newUser {
-    token: string;
-    firstname: string,
-    lastname: string,
+    firstName: string,
+    lastName: string,
     city: string,
     state: string,
     username: string,
     password: string,
     email: string
-
 }
 
-interface logUser {
-  token: string;
+ export interface logUser {
   username: string,
   password: string
 }
@@ -25,74 +26,115 @@ interface logUser {
   providedIn: 'root',
 })
 export class AuthenticationService {
-  
+
+
 private apiUrl = 'http://localhost:8080/4TheMusic/';
 
 private httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=utf-8', 'Authentication': 'token'}),
+  headers: new HttpHeaders({'Content-Type': 'application/json',
+  'Authorization': 'token'})
 };
-// private handleError : any;
+  
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {
+  
 
+  }
 
   //user login
-  userLogin(logUser : logUser): Observable<logUser> {
-    this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8').set('Authentication', 'token')
-    console.log(JSON.stringify(this.httpOptions.headers))
-    return this.http.post<logUser>('http://localhost:8080/user/login', 
-    JSON.stringify(logUser.token),
-    this.httpOptions)
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
+  /**
+   * @author Erika Johnson
+   * @param newUser
+   *  @param logUser
+   * @returns
+   *  Once a user registers/signs in, they are given a token,
+   * [Normally we would use a JWT token but in this instance we are utilizing the users username]
+   * which will track their requests through-out
+   * the application, until they sign out
+   */
+
+   userLogin(logUser: logUser): Observable<logUser> {
+    localStorage.setItem('token', logUser.username);
+    let userToken = localStorage.getItem('token');
+    console.log(userToken);
+    return this.http
+      .post<logUser>(
+        this.apiUrl + 'login',
+        JSON.stringify(logUser),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
   }
+
+/**
+   * @author Erika Johnson
+   * @returns
+   * getToken and isLoggedIn functions are used in the auth.guard.ts file
+   * to verify that the premium user is logged in and has a token upon logging in
+   */
+
+ getToken(): string | null {
+  return localStorage.getItem('token');
+}
+ 
+  isLoggedIn() {
+    return this.getToken() !== null;
+  }
+
  
 
-  public newHead = this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8')
+
+
+/**
+ * @author Erika Johnson
+ * @param newUser 
+ * @returns 
+ *  Once a user registers/signs in, they are given a token, 
+ * [Normally we would use a JWT token but in this instance we are utilizing the users username]
+ * which will track their requests through-out
+ * the application, until they sign out
+ */
 
 
   //register function
-  userRegister(newUser: newUser): Observable<newUser> {
-   this.httpOptions.headers = this.httpOptions.headers.set('Content-Type', 'application/json;charset=utf-8').set('Authentication', 'token')
-   console.log(JSON.stringify(this.httpOptions.headers))
-    return this.http.post<newUser>('http://localhost:8080/user/register/basic',
-    JSON.stringify(newUser.token),
-  this.httpOptions)
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
+  /**
+ * User Registration
+ */
+   userRegister(newUser: newUser): Observable<newUser> {
+    console.log(newUser), console.log(newUser.firstName);
+    console.log(this.httpOptions);
+    localStorage.setItem('token ', newUser.username);
+    localStorage.setItem('firstName', newUser.firstName);
+    let userToken = localStorage.getItem('token ');
+    console.log(userToken);
+    return this.http
+      .post<newUser>(
+        this.apiUrl + 'user/register/basic',
+        JSON.stringify(newUser),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   handleError(error: HttpErrorResponse) {
-    console.log(error)
-    return throwError(() => error)
+    console.log(error);
+    return throwError(() => error);
   }
 
-  //logout function
+  /**
+   * @author Erika Johnson
+   * Logout Function clears the token from the
+   * LocalStorage, so user data isn't being stored
+   * within the application, once they leave
+   */
+
   loggedOut() {
-    return localStorage.clear()
+    localStorage.clear()
+    alert("Leaving so soon")
+    this.router.navigate(['/'])
   }
-  // errorHand1(error:any) {
-  //   let errorMessage = ''
-  //   if(error.error instanceof ErrorEvent) {
-  //     errorMessage = error.error.message;
-  //   } else {
-  //     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`
-  //   }
-  //   console.log(errorMessage)
-  //   return throwError(() =>errorMessage);
-  // }
 
-  // userRegister(firstname: string, lastname: string, city: string, 
-  //   state: string, username: string, password: string, 
-  //   email: string): Observable<any> {
-  //   return this.http.post(this.apiUrl + 'register', {
-  //     firstname, lastname, city, state, username,
-  //     password,email
-  //   }, this.httpOptions)
-  // }
 }
+
+

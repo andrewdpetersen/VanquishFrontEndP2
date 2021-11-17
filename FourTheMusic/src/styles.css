@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css");
+a.navbar-brand{
+    color: #0D6EFD;
+    font-weight: 500;
+}
+
+i{
+    color: rgb(223, 148, 9);
+}

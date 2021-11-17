@@ -1,13 +1,16 @@
-
+<h1 class= "title">Welcome to 4TheMusic</h1>
 <div class="text-center mt-5">
-    <form [formGroup]="registerForm" (ngSubmit) = "userRegister()"  class="form-control" id="form"style="max-width: 350px; margin: auto">
+    <form [formGroup]="registerForm" (ngSubmit) = "userRegister()"  class="form-control" id="form"style="max-width: 350px; margin: auto"
+    *ngIf = "!Success" name ="registerForm"
+    novalidate
+    >
       <h1 class="h2" id="h2">Sign Up</h1>
 
       <div class = "container">
      
-        <label for="firstname" class="visually-hidden">Firstname</label>
+        <label for="firstName" class="visually-hidden">Firstname</label>
         <input
-          formControlName="firstname"
+          formControlName="firstName"
           type="text"
           id="firstname"
           name="firstname"
@@ -17,9 +20,9 @@
           required
           autofocus
         />
-        <label for="lastname" class="visually-hidden">Lastname</label>
+        <label for="lastName" class="visually-hidden">Lastname</label>
         <input
-          formControlName="lastname"
+          formControlName="lastName"
           type="text"
           id="lastname"
           name="lastname"
@@ -93,7 +96,7 @@
       <div class="d-grid gap-2 mt-3">
         <button class="btn btn-primary" type="submit">Sign Up</button>
       </div>
-        <a href="/login">Already have an account? Sign In</a>
+        <a routerLink="/login">Already have an account? Sign In</a>
       </div>
 
     </form>
