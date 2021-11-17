@@ -145,3 +145,32 @@
     position: relative;
     top:3px;
 }
+
+button {
+  background-color: #0D6EFD;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+}
+
+button#concertButton{
+position: relative;
+top:16px;
+}
+
+button#otherConButton{
+position: relative;
+top: 8px;
+}
+input
+{
+  height: 40px;
+  font-size: 30px;
+  border: 1px solid grey;
+  border-radius: 4px;
+}

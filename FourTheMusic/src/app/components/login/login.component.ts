@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         if (val.username === 'petean05' && val.password === 'secretPass33!') {
           alert('You are a premium user ' + val.username);
           this.router.navigate(['premiumUser']);
-        } else if (val.username != 'Admin' && val.password != 'Password5!') {
+        } else if (val.username != 'petean05' && val.password != 'secretPass33!') {
           alert('Welcome back ' + val.username);
           this.router.navigate(['navbar']);
         } else {
