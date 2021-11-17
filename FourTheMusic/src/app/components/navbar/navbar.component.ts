@@ -8,7 +8,7 @@ import { AuthenticationService} from 'src/app/services/authentication.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  navbarOpen = false;
   constructor( private authService: AuthenticationService) { 
 
    }
@@ -19,6 +19,9 @@ export class NavbarComponent implements OnInit {
 
   }
  
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+  }
 
 
   LoggedOut () {

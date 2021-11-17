@@ -9,9 +9,14 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class PremiumNavBarComponent implements OnInit {
 
+  navbarOpen = false;
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit(): void {
+  }
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
   }
 
   LoggedOut () {
