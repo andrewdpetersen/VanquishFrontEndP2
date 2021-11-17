@@ -9,15 +9,20 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class PremiumDashboardComponent implements OnInit {
  
 
+  navbarOpen = false;
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit(): void {
   }
 
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+  }
+
   LoggedOut () {
     this.authService.loggedOut();
     console.log("clicked")
-
+    
   }
 
 }
