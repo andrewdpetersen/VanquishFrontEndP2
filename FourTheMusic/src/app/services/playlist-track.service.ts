@@ -22,8 +22,7 @@ export class PlaylistTrackService {
     console.log(playlist_id);
     console.log(track_id);
     return this.http.delete<PlaylistTrack>('http://localhost:8080/4TheMusic/remove/'+playlist_id+'/'+track_id).pipe(
-      retry(1),catchError(this.errorHandler));
-    console.log("Reached2");  
+      retry(1),catchError(this.errorHandler)); 
   }
 
   AddTrackToPlaylist(playlist_id:number,track:Track):Observable<PlaylistTrack>{
