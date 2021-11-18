@@ -31,14 +31,10 @@ export class AuthenticationService {
 private apiUrl = 'http://localhost:8080/4TheMusic/';
 
 private httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json',
-  'Authorization': 'token'})
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-  
-
 
   constructor(private http: HttpClient, private router: Router) {
-  
 
   }
 
@@ -57,7 +53,7 @@ private httpOptions = {
    userLogin(logUser: logUser): Observable<logUser> {
     localStorage.setItem('token', logUser.username);
     let userToken = localStorage.getItem('token');
-    console.log(userToken);
+    console.log(logUser);
     return this.http
       .post<logUser>(
         this.apiUrl + 'login',

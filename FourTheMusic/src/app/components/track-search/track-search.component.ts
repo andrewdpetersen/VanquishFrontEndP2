@@ -76,6 +76,7 @@ export class TrackSearchComponent implements OnInit {
   }
 
   likeThis(track:Track):void{
+    alert("We're glad you are liking this track!");
     this.service.likeTrack(track).subscribe(data=>{
         let {track_id, title, artist, album} = data;
         this.ratedTrack.push({track_id, title, artist, album});
@@ -84,6 +85,7 @@ export class TrackSearchComponent implements OnInit {
   }
 
   dislikeThis(track:Track):void{
+    alert("We're sorry you didn't like this track");
     this.service.dislikeTrack(track).subscribe(data=>{
       let {track_id, title, artist, album} = data;
       this.ratedTrack.push({track_id, title, artist, album});
@@ -112,6 +114,7 @@ export class TrackSearchComponent implements OnInit {
   }
 
   addToPlaylist(playlist_id:number,track:Track):void{
+    alert("We added this track to your playlist!");
     this.service4.AddTrackToPlaylist(playlist_id,track).subscribe(data=>
         {let {playlist_id, track_id} = data;
       

@@ -11,7 +11,7 @@
 
 <br><br>
 <div>
-    <button (click)="listSearch(search,searchType)" value="Search" class="button">Search</button>
+    <button (click)="listSearch(search,searchType)" value="Search">Search</button>
 </div>
 </div>
 <br>
@@ -40,8 +40,9 @@
                     </option>
                     
                 </select>
-                <button (click)='addToPlaylist(selectValue,track)'>Add to Playlist</button>
-                <button (click)='ratioThis(track.track_id)'>View Like/Dislike Ratio</button>
+                <button (click)='addToPlaylist(selectValue,track)' id="addTrackToList">Add to Playlist</button>
+                <br><br>
+                <button (click)='ratioThis(track.track_id)' id="viewRatioButton">View Like/Dislike Ratio</button>
             </form>
             </div>
         </div>
@@ -98,8 +99,9 @@
                 </option>
                 
             </select>
-            <button (click)='addToPlaylist(selectValue,track)'>Add to Playlist</button>
-            <button (click)='ratioThis(track.track_id)'>View Like/Dislike Ratio</button>
+            <button (click)='addToPlaylist(selectValue,track)' id="addTrackToList">Add to Playlist</button>
+            <br>
+            <button (click)='ratioThis(track.track_id)' id="viewRatioButton">View Like/Dislike Ratio</button>
         </form>
         </div>
     </div>
