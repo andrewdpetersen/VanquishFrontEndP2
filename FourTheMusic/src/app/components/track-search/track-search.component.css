@@ -143,3 +143,29 @@ input
   border: 1px solid grey;
   border-radius: 4px;
 }
+
+#addTrackToList{
+  background-color: #0D6EFD;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+
+}
+
+#viewRatioButton{
+  background-color: #0D6EFD;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+
+}

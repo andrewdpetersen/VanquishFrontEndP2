@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       const val = this.loginForm.getRawValue();
       console.log(val);
       this.authService.userLogin(val).subscribe((res) => {
-        console.log(res), (error: any) => console.log(error);
+        console.log(res),(error: any) => console.log(error);
         if (val.username === 'petean05' && val.password === 'secretPass33!') {
           alert('You are a premium user ' + val.username);
           this.router.navigate(['premiumUser']);

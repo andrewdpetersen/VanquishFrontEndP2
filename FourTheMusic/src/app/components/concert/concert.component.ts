@@ -36,6 +36,7 @@ export class ConcertComponent implements OnInit {
   });}
 
   cancelConcert(concert_id:number):void{
+    alert("This concert has been cancelled");
     this.service.DeleteConcert(concert_id).subscribe(data=>{
       let {concert_id,date,name,location} = data;
       this.cancelledConcert.push({concert_id,date,name,location});
